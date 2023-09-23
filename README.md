@@ -34,7 +34,21 @@ set imsearch=0
 
 ## 输入法切换
 
-简化了部分功能，加入极点五笔输入法作为默认输入法，如需要调整输入法，可以从[这里](https://code.google.com/archive/p/vimim/downloads?page=2)下载其他输入法码表，或者从 [ime](https://github.com/yuweijun/vim-im/tree/master/ime) 文件夹里找一个码表替换极点五笔输入法。
+目前仍是原 vimim-wb 的简化程度，使用的是作者正在使用的宇浩输入法，可以从[这里](https://code.google.com/archive/p/vimim/downloads?page=2)下载其他输入法码表，用以替换宇浩输入法
+
+使用[宇浩输入法](https://github.com/forFudan/yuhao)的 baidu 的简体简码码表，删除四字以上的短语(实在用得少)，调整以下词的顺序：
+- 使用-采用
+- 外存-外在
+- 内存-内在
+- 他的-他妈的
+
+另为补足四码，将字根字的规则修改为：大码+小码+小码+大码（暂未修改码表），新增主要重码：
+- 臼 - 猖
+- 厂 - 蒜
+- 手 - 镰
+- 爪 - 俚
+- 氵 - 泔
+- 為 - 谣
 
 ## 使用
 

@@ -61,13 +61,17 @@ function! s:vimim_initialize_global()
     let s:pumheights = { 'current' : &pumheight, 'saved' : &pumheight }
     let s:backend = { 'datafile' : {}, 'directory' : {} }
     let s:ui = { 'root' : '', 'im' : '', 'quote' : 0, 'frontends' : [] }
+
+    " s:rc 项可供用户设置，但是需要在插件加载完毕后进行
     let s:rc = {}
     let s:rc["g:Vimim_mode"] = 'dynamic'
     let s:rc["g:Vimim_shuangpin"] = 0
     let s:rc["g:Vimim_toggle"] = 0
     let s:rc["g:Vimim_plugin"] = s:plugin
-    let s:rc["g:Vimim_punctuation"] = 2
+    let s:rc["g:Vimim_punctuation"] = 1
+    " 设置默认选项
     call s:vimim_set_global_default()
+
     let s:plugin = isdirectory(g:Vimim_plugin) ? g:Vimim_plugin : s:plugin
     let s:plugin = s:plugin[-1:] != "/" ? s:plugin."/" : s:plugin
     let s:dynamic    = {'dynamic':1,'static':0}
@@ -174,11 +178,11 @@ function! s:vimim_dictionary_punctuations()
     " let one = " @  :  #  &  %  $  !  =  ;  ?  * "
     " let two = " 　 ： ＃ ＆ ％ ￥ ！ ＝ ； ？ ﹡"
     let most_punctuations = s:vimim_key_value_hash(one, two)
+    call extend(mini_punctuations, antonyms)
     call extend(most_punctuations, antonyms)
 
-    let s:key_evils = { '\' : "、", "'" : "‘’", '"' : "“”" }
-    " let s:all_evils = {}
-    let s:all_evils = { '\' : "、", "'" : "‘’", '"' : "“”" }
+    let s:key_evils = { '\\' : "、", "'" : "‘’", '"' : "“”" }
+    let s:all_evils = {}
 
     call extend(s:all_evils, mini_punctuations)
     call extend(s:all_evils, most_punctuations)
