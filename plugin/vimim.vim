@@ -17,7 +17,7 @@ let s:VimIM  = [" ====  introduction     ==== {{{"]
 "    (2) [option] drop supported datafiles, like: plugin/vimim.wubijd.txt
 "  Usage: VimIM takes advantage of the definition from Vim
 "    (1) :help i_CTRL-^  Toggle the use of language      ...
-"    (2) :help i_CTRL-_  Switch between languages        ...
+"    (2) :help i_CTRL-J  Switch between languages        ...
 
 " ============================================= }}}
 let s:VimIM += [" ====  initialization   ==== {{{"]
@@ -92,7 +92,7 @@ function! s:vimim_dictionary_keycodes()
     let s:keycodes.boshiamy = "['a-z.],[]"
     let ime  = ' pinyin_sogou pinyin_quote_sogou pinyin_huge'
     let ime .= ' pinyin_fcitx pinyin_canton pinyin_hongkong'
-    let ime .= ' wubi98 wubi2000 wubijd wubihf'
+    let ime .= ' wubi98 wubi2000 wubijd wubihf wubiyuhao'
     let s:all_vimim_input_methods = keys(s:keycodes) + split(ime)
 endfunction
 
@@ -223,7 +223,7 @@ function! s:vimim_im_chinese()
     let backend = s:backend[s:ui.root][s:ui.im]
     let title = has_key(s:keycodes, s:ui.im) ? backend.chinese : ''
     if s:ui.im =~ 'wubi'
-        for wubi in split('wubi98 wubi2000 wubijd wubihf')
+        for wubi in split('wubi98 wubi2000 wubijd wubihf wubiyuhao')
             if get(split(backend.name, '/'),-1) =~ wubi
                 let title .= s:chinese(wubi)
             endif
@@ -1211,8 +1211,8 @@ let s:VimIM += [" ====  core driver      ==== {{{"]
 " =================================================
 
 function! s:vimim_plug_and_play()
-    nnoremap <silent> <C-_> a<C-R>=g:Vimim_chinese()<CR>
-    inoremap <unique> <C-_>  <C-R>=g:Vimim_chinese()<CR>
+    nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR>
+    inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
 endfunction
 
 sil!call s:vimim_initialize_global()
