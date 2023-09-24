@@ -42448,8 +42448,8 @@ ecem 他处
 ecen 他個
 ecep 他们
 eceq 处女作
-ecew 他妈的
 ecew 他的
+ecew 他妈的
 ecew 他媽的
 ecew 仁民爱物
 ecfa 依違兩可
@@ -44279,8 +44279,8 @@ efti 𠔊
 eftk 彩钢
 eftm 彩钻
 eftm 𥂑
-eftn 采用
 eftn 使用
+eftn 采用
 efto 彩
 efto 条令
 efto 体念
