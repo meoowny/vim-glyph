@@ -472,12 +472,6 @@ function! s:vimim_get_seamless(cursor_positions)
     return seamless_column
 endfunction
 
-let s:translators = {}
-function! s:translators.translate(english) dict
-    let inputs = split(a:english)
-    return join(map(inputs,'get(self.dict,tolower(v:val),v:val)'), '')
-endfunction
-
 " ============================================= }}}
 let s:VimIM += [" ====  input: unicode   ==== {{{"]
 " =================================================

@@ -156845,6 +156845,7 @@ pmta 补钙
 pmte 粘人
 pmtf 米铺
 pmtf 米倉
+pmtg 补全
 pmti 𤷢
 pmti 𰩑
 pmtj 粗魯
@@ -202264,8 +202265,8 @@ tneu 𨖤
 tnew 用爲
 tnew 𱍼
 tney 𩻤
-tnfa 手足无措
 tnfa 用于
+tnfa 手足无措
 tnfd 用项
 tnfd 用項
 tnfg 用武
