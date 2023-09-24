@@ -17,7 +17,7 @@ let s:VimIM  = [" ====  introduction     ==== {{{"]
 "    (2) [option] drop supported datafiles, like: plugin/vimim.wubijd.txt
 "  Usage: VimIM takes advantage of the definition from Vim
 "    (1) :help i_CTRL-^  Toggle the use of language      ...
-"    (2) :help i_CTRL-J  Switch between languages        ...
+"    (2) :help i_CTRL-_  Switch between languages        ...
 
 " ============================================= }}}
 let s:VimIM += [" ====  initialization   ==== {{{"]
@@ -1063,6 +1063,9 @@ let s:VimIM += [" ====  core driver      ==== {{{"]
 " =================================================
 
 function! s:vimim_plug_and_play()
+    " 原代码:
+    " nnoremap <silent> <C-_> a<C-R>=g:Vimim_chinese()<CR>
+    " inoremap <unique> <C-_>  <C-R>=g:Vimim_chinese()<CR>
     nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR>
     inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
 endfunction
