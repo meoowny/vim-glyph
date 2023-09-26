@@ -623,13 +623,8 @@ function! s:vimim_start()
     sil!call s:vimim_set_keyboard_maps()
     lnoremap <silent><buffer> <expr> <Esc>   g:Vimim_esc()
     lnoremap <silent><buffer> <expr> <C-L>   g:Vimim_cycle_vimim()
-    if s:ui.im =~ 'array'
-        lnoremap <silent><buffer> <expr> <CR>    g:Vimim_space()
-        lnoremap <silent><buffer> <expr> <Space> g:Vimim_pagedown()
-    else
-        lnoremap <silent><buffer> <expr> <CR>    g:Vimim_enter()
-        lnoremap <silent><buffer> <expr> <Space> g:Vimim_space()
-    endif
+    lnoremap <silent><buffer> <expr> <CR>    g:Vimim_enter()
+    lnoremap <silent><buffer> <expr> <Space> g:Vimim_space()
     let key = ''
     if empty(s:ctrl6)
         let s:ctrl6 = 32911
@@ -856,7 +851,8 @@ function! s:vimim_plug_and_play()
     " 原代码:
     " nnoremap <silent> <C-_> a<C-R>=g:Vimim_chinese()<CR>
     " inoremap <unique> <C-_>  <C-R>=g:Vimim_chinese()<CR>
-    nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR>
+    " vim 原生支持的语言切换键是 C-_ 和 C-^
+    nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR><ESC>
     inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
 endfunction
 
