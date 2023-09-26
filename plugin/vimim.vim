@@ -49,18 +49,15 @@ function! s:vimim_initialize_global()
     let s:seamless_positions = []
     let s:starts = { 'row' : 0, 'column' : 1 }
     let s:abcd = split("'abcdvfgxz", '\zs')
-    let s:qwer = split("pqwertyuio", '\zs')
     let s:az_list = map(range(97,122),"nr2char(".'v:val'.")")
     let s:valid_keys = s:az_list
-    let s:valid_keyboard = "[0-9a-z']"
-    let s:valid_wubi_keyboard = "[0-9a-z]"
+    let s:valid_keyboard = "[0-9a-z]"
     let s:pumheights = { 'current' : &pumheight, 'saved' : &pumheight }
     let s:backend = { 'datafile' : {}, 'directory' : {} }
-    let s:ui = { 'root' : '', 'im' : '', 'quote' : 0, 'frontends' : [] }
+    let s:ui = { 'root' : '', 'im' : '', 'frontends' : [] }
 
     " s:rc 项可供用户设置，但是需要在插件加载完毕后进行
     let s:rc = {}
-    let s:rc["g:Vimim_mode"] = 'dynamic'
     let s:rc["g:Vimim_toggle"] = 0
     let s:rc["g:Vimim_plugin"] = s:plugin
     let s:rc["g:Vimim_punctuation"] = 1
@@ -75,27 +72,15 @@ endfunction
 
 function! s:vimim_dictionary_keycodes()
     let s:keycodes = {}
-    for key in split( ' pinyin ')
-        let s:keycodes[key] = "['a-z0-9]"
+    for key in split('wubi')
+        let s:keycodes[key] = "[a-z]"
     endfor
-    for key in split('array30 phonetic')
-        let s:keycodes[key] = "[.,a-z0-9;/]"
-    endfor
-    for key in split('zhengma taijima wubi cangjie hangul xinhua quick')
-        let s:keycodes[key] = "['a-z]"
-    endfor
-    let s:keycodes.wu       = "['a-z]"
-    let s:keycodes.nature   = "['a-z]"
-    let s:keycodes.yong     = "['a-z.;/]"
-    let s:keycodes.erbi     = "['a-z.;/,]"
-    let s:keycodes.boshiamy = "['a-z.],[]"
     let ime  = ' wubiyuhao'
     let s:all_vimim_input_methods = keys(s:keycodes) + split(ime)
 endfunction
 
 function! s:vimim_set_frontend()
-    let quote = 'erbi wu nature yong boshiamy'
-    let s:valid_keyboard = "[0-9a-z']"
+    let s:valid_keyboard = "[0-9a-z]"
     if !empty(s:ui.root)
         let s:valid_keyboard = s:backend[s:ui.root][s:ui.im].keycode
     endif
@@ -109,10 +94,10 @@ function! s:vimim_set_frontend()
     endwhile
 
     let s:valid_keys = split(keycode_string, '\zs')
-    let s:wubi = s:ui.im =~ 'wubi\|erbi' ? 1 : 0
-    let s:ui.quote = match(split(quote),s:ui.im) < 0 ? 0 : 1
+    " let s:wubi = s:ui.im =~ 'wubi\|erbi' ? 1 : 0
+    let s:wubi = 1
     let s:gi_dynamic = 0
-    let logo = s:chinese('chinese',s:mode.static?'static':'dynamic')
+    let logo = s:chinese('chinese','_',s:mode.static?'static':'dynamic')
     let tail = s:chinese('halfwidth')
     if g:Vimim_punctuation > 0 && s:toggle_punctuation > 0
         let tail = s:chinese('fullwidth')
@@ -157,23 +142,20 @@ let s:VimIM += [" ====  user interface   ==== {{{"]
 " =================================================
 
 function! s:vimim_dictionary_punctuations()
-    let s:antonym = " 〖〗 （） 《》 【】 ‘’ “”"
+    let s:antonym = " 〖〗 （） 《》 【】 "
     let one =       " { }  ( )  < >  [  ] "
     let two = join(split(join(split(s:antonym)[:3],''),'\zs'))
     let antonyms = s:vimim_key_value_hash(one, two)
-    let one = " ,  .  ~  ^  _  :  $  !  ;  ? "
-    let two = " ， 。 ﹡ …… —— ： ￥ ！ ； ？"
+    let one = " ,  .  ~  ^  _  :  $  !  ;  ?  \\  '  \" "
+    let two = " ， 。 ﹡ …… —— ： ￥ ！ ； ？ 、 ‘’  “” "
     let mini_punctuations = s:vimim_key_value_hash(one, two)
     let one = " +  -  ~  #  &  %  =  * "
     let two = "＋ － ～ ＃ ＆ ％  ＝ ﹡"
-    " let one = " @  :  #  &  %  $  !  =  ;  ?  * "
-    " let two = " 　 ： ＃ ＆ ％ ￥ ！ ＝ ； ？ ﹡"
     let most_punctuations = s:vimim_key_value_hash(one, two)
     call extend(mini_punctuations, antonyms)
     call extend(most_punctuations, antonyms)
 
-    let s:key_evils = { '\\' : "、", "'" : "‘’", '"' : "“”" }
-    let s:all_evils = {}
+    let s:all_evils = { "<TAB>": "<TAB>" }
 
     call extend(s:all_evils, mini_punctuations)
     call extend(s:all_evils, most_punctuations)
@@ -184,18 +166,6 @@ function! s:vimim_dictionary_punctuations()
     if g:Vimim_punctuation > 1
         call extend(s:punctuations, most_punctuations)
     endif
-endfunction
-
-function! g:Vimim_bracket(offset)
-    let cursor = ""
-    let range = col(".") - 1 - s:starts.column
-    let repeat_times = range / s:multibyte + a:offset
-    if repeat_times
-        let cursor = repeat("\<Left>\<Delete>", repeat_times)
-    elseif repeat_times < 1
-        let cursor = strpart(getline("."), s:starts.column, s:multibyte)
-    endif
-    return cursor
 endfunction
 
 function! s:vimim_get_label(label)
@@ -223,9 +193,9 @@ function! s:vimim_im_chinese()
     let backend = s:backend[s:ui.root][s:ui.im]
     let title = has_key(s:keycodes, s:ui.im) ? backend.chinese : ''
     if s:ui.im =~ 'wubi'
-        for wubi in split('wubi98 wubi2000 wubijd wubihf wubiyuhao')
+        for wubi in split('wubihf wubiyuhao')
             if get(split(backend.name, '/'),-1) =~ wubi
-                let title .= s:chinese(wubi)
+                let title .= '_' . s:chinese(wubi)
             endif
         endfor
     endif
@@ -250,6 +220,7 @@ function! g:Vimim_cycle_vimim()
     return ""
 endfunction
 
+" 数字键（标签）选词
 function! g:Vimim_label(key)
     let key = a:key
     if pumvisible()
@@ -267,24 +238,30 @@ function! g:Vimim_label(key)
     sil!exe 'sil!return "' . key . '"'
 endfunction
 
+" 翻页按键的处理
 function! g:Vimim_page(key)
     let key = a:key
     if pumvisible()
         let page = '\<C-E>\<C-R>=g:Vimim()\<CR>'
-        if key =~ '[][]'
-            let left  = key == "]" ? "\<Left>"  : ""
-            let right = key == "]" ? "\<Right>" : ""
-            let _ = key == "]" ? 0 : -1
-            let backspace = '\<C-R>=g:Vimim_bracket('._.')\<CR>'
-            let key = '\<C-Y>' . left . backspace . right
-        elseif key =~ '[=.]'
+        " 取消左右方括号删词的操作，太鸡肋，改为翻页用
+        " if key =~ '[][]'
+        "     let left  = key == "]" ? "\<Left>"  : ""
+        "     let right = key == "]" ? "\<Right>" : ""
+        "     let _ = key == "]" ? 0 : -1
+        "     let backspace = '\<C-R>=g:Vimim_bracket('._.')\<CR>'
+        "     let key = '\<C-Y>' . left . backspace . right
+        " 取消逗号句号翻页
+        " elseif key =~ '[=.]'
+        " elseif key =~ '[=]'
+        if key =~ '[]]'
             let s:pageup_pagedown = &pumheight ? 1 : 0
             let key = &pumheight ? page : '\<PageDown>'
-        elseif key =~ '[-,]'
+        elseif key =~ '[[]'
             let s:pageup_pagedown = &pumheight ? -1 : 0
             let key = &pumheight ? page : '\<PageUp>'
         endif
-    elseif key =~ "[][=-]"
+    " elseif key =~ "[][=-]"
+    elseif key =~ "[][]"
         let key = g:Punctuation(key)
     endif
     sil!exe 'sil!return "' . key . '"'
@@ -302,40 +279,61 @@ function! g:Wubi()
     sil!exe 'sil!return "' . key . '"'
 endfunction
 
+" 初始化 lmap 的符号相关的按键映射
 function! s:vimim_punctuation_maps()
     for _ in keys(s:all_evils)
         if _ !~ s:valid_keyboard
-            exe 'lnoremap<buffer><expr> '._.' g:Punctuation("'._.'")'
+            if _ == "'"
+                exe "lnoremap<buffer><expr> "._.' g:Punctuation("'._.'")'
+            else
+                exe "lnoremap<buffer><expr> "._." g:Punctuation('"._."')"
+            endif
         endif
     endfor
 endfunction
 
+" 符号转化输出，依据符号表来确认输出字符，二选三选四选均在此
 function! g:Punctuation(key)
     let key = a:key
+
     if s:toggle_punctuation > 0
-        if pumvisible() || getline(".")[col(".")-2] !~ '\w'
+        if !pumvisible() || getline(".")[col(".")-2] !~ '\w'
             if has_key(s:punctuations, a:key)
                 let key = s:punctuations[a:key]
+                if a:key == '"'
+                    let key = split(key, '\zs')[s:double_quotes_toggle_status]
+                    let s:double_quotes_toggle_status = (s:double_quotes_toggle_status + 1) % 2
+                elseif a:key == "'"
+                    let key = split(key, '\zs')[s:single_quotes_toggle_status]
+                    let s:single_quotes_toggle_status = (s:single_quotes_toggle_status + 1) % 2
+                endif
             endif
         endif
     endif
     if pumvisible()
-        " 三选 
-        let key = a:key == ";" ? '\<C-N>\<C-Y>' : '\<C-Y>' . key
-        " let key = a:key == ";" ? '\<C-N>\<C-Y>' : a:key == "'" ? '\<C-N>\<C-N>\<C-Y>' : '\<C-Y>' . key
+        " 三选，四选 
+        " let key = a:key == ";" ? '\<C-N>\<C-Y>' : '\<C-Y>' . key
+        if a:key == ";"
+            let key = '\<C-N>\<C-Y>' 
+        elseif a:key == "'"
+            let key = '\<C-N>\<C-N>\<C-Y>' 
+        elseif a:key == "\t"
+            let key = '\<C-N>\<C-N>\<C-N>\<C-Y>' 
+        else
+            let key = key
+        endif
     elseif s:gi_dynamic
-        let key = a:key == ";" ? '\<C-N>' : key
-        " let key = a:key == ";" ? '\<C-N>' : a:key == "'" ? '\<C-N>\<C-N>' : key
+        " let key = a:key == ";" ? '\<C-N>' : key
+        if a:key == ";"
+            let key = '\<C-N>' 
+        elseif a:key == "'"
+            let key = '\<C-N>\<C-N>' 
+        elseif a:key == "\t"
+            let key = '\<C-N>\<C-N>\<C-N>' 
+        else
+            let key = key
+        endif
         call g:Vimim_space()
-    endif
-    sil!exe 'sil!return "' . key . '"'
-endfunction
-
-function! g:Vimim_pagedown()
-    let key = ' '
-    if pumvisible()
-        let s:pageup_pagedown = &pumheight ? 1 : 0
-        let key = &pumheight ? g:Vimim() : '\<PageDown>'
     endif
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -391,16 +389,22 @@ let s:VimIM += [" ====  mode: chinese    ==== {{{"]
 " =================================================
 
 function! g:Vimim_chinese()
-    let s:mode = g:Vimim_mode =~ 'static' ? s:static : s:dynamic
+    let s:mode = s:dynamic
     let s:switch = empty(s:ui.frontends) ? -1 : s:switch ? 0 : 1
     return s:switch<0 ? "" : s:switch ? s:vimim_start() : s:vimim_stop()
 endfunction
 
 function! s:vimim_set_keyboard_maps()
-    let common_punctuations = split("] [ = -")
+    " 以下为新增变量，用于处理引号配对的问题
+    let s:single_quotes_toggle_status = 0
+    let s:double_quotes_toggle_status = 0
+
+    let both_dynamic = s:mode.dynamic || s:gi_dynamic ? 1 : 0
+    " 取消加减翻页的功能，改用方括号翻页
+    " let common_punctuations = split("] [ = -")
+    let common_punctuations = split("] [")
     let common_labels = s:ui.im =~ 'phonetic' ? [] : range(10)
     let s:gi_dynamic = 0
-    let both_dynamic = s:mode.dynamic || s:gi_dynamic ? 1 : 0
     if both_dynamic
         for char in s:valid_keys
             sil!exe 'lnoremap<silent><buffer> ' . char . ' ' .
@@ -413,7 +417,6 @@ function! s:vimim_set_keyboard_maps()
     else
         let common_punctuations += split(". ,")
         let common_labels += s:abcd[1:]
-        let pqwertyuio = []
     endif
     if g:Vimim_punctuation < 0
     elseif both_dynamic || s:mode.static
@@ -700,7 +703,7 @@ let s:VimIM += [" ====  core engine      ==== {{{"]
 " =================================================
 
 function! VimIM(start, keyboard)
-let valid_keyboard = s:wubi ? s:valid_wubi_keyboard : s:valid_keyboard
+let valid_keyboard = s:valid_keyboard
 if a:start
     let cursor_positions = getpos(".")
     let start_row = cursor_positions[1]
