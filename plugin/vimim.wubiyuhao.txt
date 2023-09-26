@@ -57671,8 +57671,8 @@ firw 一覺
 firx 一律
 fisb 无所顾忌
 fisd 𬃐
-fise 一清二白
 fise 一次
+fise 一清二白
 fisf 一清二楚
 fisf 一帶
 fisg 一头
