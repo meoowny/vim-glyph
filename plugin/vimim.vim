@@ -94,9 +94,7 @@ function! s:vimim_set_frontend()
     endwhile
 
     let s:valid_keys = split(keycode_string, '\zs')
-    " let s:wubi = s:ui.im =~ 'wubi\|erbi' ? 1 : 0
     let s:wubi = 1
-    let s:gi_dynamic = 0
     let logo = s:chinese('chinese','_',s:mode.static?'static':'dynamic')
     let tail = s:chinese('halfwidth')
     if g:Vimim_punctuation > 0 && s:toggle_punctuation > 0
@@ -244,15 +242,6 @@ function! g:Vimim_page(key)
     if pumvisible()
         let page = '\<C-E>\<C-R>=g:Vimim()\<CR>'
         " 取消左右方括号删词的操作，太鸡肋，改为翻页用
-        " if key =~ '[][]'
-        "     let left  = key == "]" ? "\<Left>"  : ""
-        "     let right = key == "]" ? "\<Right>" : ""
-        "     let _ = key == "]" ? 0 : -1
-        "     let backspace = '\<C-R>=g:Vimim_bracket('._.')\<CR>'
-        "     let key = '\<C-Y>' . left . backspace . right
-        " 取消逗号句号翻页
-        " elseif key =~ '[=.]'
-        " elseif key =~ '[=]'
         if key =~ '[]]'
             let s:pageup_pagedown = &pumheight ? 1 : 0
             let key = &pumheight ? page : '\<PageDown>'
@@ -294,10 +283,8 @@ endfunction
 
 " 符号转化输出，依据符号表来确认输出字符，二选三选四选均在此
 function! g:Punctuation(key)
-    let key = a:key
-
     if s:toggle_punctuation > 0
-        if !pumvisible() || getline(".")[col(".")-2] !~ '\w'
+        if pumvisible() || getline(".")[col(".")-2] !~ '\w'
             if has_key(s:punctuations, a:key)
                 let key = s:punctuations[a:key]
                 if a:key == '"'
@@ -308,11 +295,13 @@ function! g:Punctuation(key)
                     let s:single_quotes_toggle_status = (s:single_quotes_toggle_status + 1) % 2
                 endif
             endif
+            if pumvisible()
+                let key = '\<C-Y>'.key
+            endif
         endif
     endif
     if pumvisible()
         " 三选，四选 
-        " let key = a:key == ";" ? '\<C-N>\<C-Y>' : '\<C-Y>' . key
         if a:key == ";"
             let key = '\<C-N>\<C-Y>' 
         elseif a:key == "'"
@@ -322,18 +311,6 @@ function! g:Punctuation(key)
         else
             let key = key
         endif
-    elseif s:gi_dynamic
-        " let key = a:key == ";" ? '\<C-N>' : key
-        if a:key == ";"
-            let key = '\<C-N>' 
-        elseif a:key == "'"
-            let key = '\<C-N>\<C-N>' 
-        elseif a:key == "\t"
-            let key = '\<C-N>\<C-N>\<C-N>' 
-        else
-            let key = key
-        endif
-        call g:Vimim_space()
     endif
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -353,9 +330,6 @@ function! g:Vimim_space()
         let key = s:vimim_left() ? g:Vimim() : key
     elseif s:seamless_positions == getpos(".")
         let s:smart_enter = 0
-    elseif s:gi_dynamic
-        let key = ''
-        let s:gi_dynamic_on = 1
     endif
     call s:vimim_reset_after_insert()
     sil!exe 'sil!return "' . key . '"'
@@ -399,12 +373,11 @@ function! s:vimim_set_keyboard_maps()
     let s:single_quotes_toggle_status = 0
     let s:double_quotes_toggle_status = 0
 
-    let both_dynamic = s:mode.dynamic || s:gi_dynamic ? 1 : 0
+    let both_dynamic = s:mode.dynamic ? 1 : 0
     " 取消加减翻页的功能，改用方括号翻页
     " let common_punctuations = split("] [ = -")
     let common_punctuations = split("] [")
     let common_labels = s:ui.im =~ 'phonetic' ? [] : range(10)
-    let s:gi_dynamic = 0
     if both_dynamic
         for char in s:valid_keys
             sil!exe 'lnoremap<silent><buffer> ' . char . ' ' .
