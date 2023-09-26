@@ -283,6 +283,8 @@ endfunction
 
 " 符号转化输出，依据符号表来确认输出字符，二选三选四选均在此
 function! g:Punctuation(key)
+    let key = a:key
+
     if s:toggle_punctuation > 0
         if pumvisible() || getline(".")[col(".")-2] !~ '\w'
             if has_key(s:punctuations, a:key)
