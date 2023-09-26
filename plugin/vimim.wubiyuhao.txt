@@ -139570,8 +139570,8 @@ nqhl 跳遠
 nqhl 四臺
 nqhm 临到
 nqhp 四连
-nqhs 监考
 nqhs 跳转
+nqhs 监考
 nqhs 㲂
 nqht 四轮
 nqht 囶
@@ -146328,8 +146328,8 @@ olol 𨑂
 olom 高就
 olon 高官
 oloo 诽谤
-oloq 高亢
 oloq 高亮
+oloq 高亢
 olor 𡪭
 olor 𧜏
 olos 高寒
@@ -195717,8 +195717,8 @@ swpd 萬物之靈
 swpd 迶
 swpd 𦻗
 swpe 有之
-swpf 有病
 swpf 有空
+swpf 有病
 swpf 有闲
 swpf 舊病
 swpl 有问
@@ -201473,8 +201473,8 @@ tksv 自动
 tksw 自有
 tksx 鰨
 tksx 𰾬
-tksy 自营
 tksy 自带
+tksy 自营
 tksy 铜芯
 tkt 钠
 tkta 钢钉

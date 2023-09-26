@@ -86,7 +86,7 @@ function! s:vimim_set_frontend()
     endif
     let i = 0
     let keycode_string = ""
-    while i < 16*16
+    while i < 256
         if nr2char(i) =~# s:valid_keyboard
             let keycode_string .= nr2char(i)
         endif
@@ -94,7 +94,6 @@ function! s:vimim_set_frontend()
     endwhile
 
     let s:valid_keys = split(keycode_string, '\zs')
-    let s:wubi = 1
     let logo = s:chinese('chinese','_',s:mode.static?'static':'dynamic')
     let tail = s:chinese('halfwidth')
     if g:Vimim_punctuation > 0 && s:toggle_punctuation > 0
@@ -262,7 +261,7 @@ function! g:Wubi()
     endif
     " 四码顶屏 
     let key = pumvisible() ? '\<C-E>' : ""
-    if s:wubi && empty(len(get(split(s:keyboard),0))%4)
+    if empty(len(get(split(s:keyboard),0))%4)
         let key = pumvisible() ? '\<C-Y>' : key
     endif
     sil!exe 'sil!return "' . key . '"'
@@ -547,11 +546,13 @@ function! s:vimim_get_from_datafile(keyboard)
     if len(results) > 10
         return results
     endif
+
     let results = []
+    let results += s:vimim_make_pairs(oneline)
     let s:show_extra_menu = 1
     " 原本范围为 range(10)
     for i in range(50)
-        let cursor += i
+        let cursor += 1
         let oneline = get(backend.lines, cursor)
         " 去除不匹配的结果，依赖码表顺序排列
         if match(oneline, pattern) < 0 | break | endif
@@ -737,7 +738,7 @@ else
         return []
     endif
     if empty(results)
-        if s:wubi && len(keyboard) > 4
+        if len(keyboard) > 4
             let keyboard = strpart(keyboard, 4*((len(keyboard)-1)/4))
             let s:keyboard = keyboard
         endif
