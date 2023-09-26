@@ -48,14 +48,12 @@ function! s:vimim_initialize_global()
     let s:localization = &encoding =~ "utf-8" ? 0 : 2
     let s:seamless_positions = []
     let s:starts = { 'row' : 0, 'column' : 1 }
-    let s:quanpin_table = {}
     let s:abcd = split("'abcdvfgxz", '\zs')
     let s:qwer = split("pqwertyuio", '\zs')
     let s:az_list = map(range(97,122),"nr2char(".'v:val'.")")
     let s:valid_keys = s:az_list
     let s:valid_keyboard = "[0-9a-z']"
     let s:valid_wubi_keyboard = "[0-9a-z]"
-    let s:shengmu_list = split('b p m f d t l n g k h j q x r z c s y w')
     let s:pumheights = { 'current' : &pumheight, 'saved' : &pumheight }
     let s:backend = { 'datafile' : {}, 'directory' : {} }
     let s:ui = { 'root' : '', 'im' : '', 'quote' : 0, 'frontends' : [] }
@@ -91,9 +89,7 @@ function! s:vimim_dictionary_keycodes()
     let s:keycodes.yong     = "['a-z.;/]"
     let s:keycodes.erbi     = "['a-z.;/,]"
     let s:keycodes.boshiamy = "['a-z.],[]"
-    let ime  = ' pinyin_sogou pinyin_quote_sogou pinyin_huge'
-    let ime .= ' pinyin_fcitx pinyin_canton pinyin_hongkong'
-    let ime .= ' wubi98 wubi2000 wubijd wubihf wubiyuhao'
+    let ime  = ' wubiyuhao'
     let s:all_vimim_input_methods = keys(s:keycodes) + split(ime)
 endfunction
 
@@ -298,6 +294,7 @@ function! g:Wubi()
     if s:gi_dynamic_on
         let s:gi_dynamic_on = 0 | return ""
     endif
+    " 四码顶屏 
     let key = pumvisible() ? '\<C-E>' : ""
     if s:wubi && empty(len(get(split(s:keyboard),0))%4)
         let key = pumvisible() ? '\<C-Y>' : key
@@ -323,9 +320,12 @@ function! g:Punctuation(key)
         endif
     endif
     if pumvisible()
+        " 三选 
         let key = a:key == ";" ? '\<C-N>\<C-Y>' : '\<C-Y>' . key
+        " let key = a:key == ";" ? '\<C-N>\<C-Y>' : a:key == "'" ? '\<C-N>\<C-N>\<C-Y>' : '\<C-Y>' . key
     elseif s:gi_dynamic
         let key = a:key == ";" ? '\<C-N>' : key
+        " let key = a:key == ";" ? '\<C-N>' : a:key == "'" ? '\<C-N>\<C-N>' : key
         call g:Vimim_space()
     endif
     sil!exe 'sil!return "' . key . '"'
@@ -539,145 +539,6 @@ function! s:vimim_readfile(datafile)
 endfunction
 
 " ============================================= }}}
-let s:VimIM += [" ====  input: pinyin    ==== {{{"]
-" =================================================
-
-function! s:vimim_get_all_valid_pinyin_list()
-return split(" 'a 'ai 'an 'ang 'ao ba bai ban bang bao bei ben beng bi
-\ bian biao bie bin bing bo bu ca cai can cang cao ce cen ceng cha chai
-\ chan chang chao che chen cheng chi chong chou chu chua chuai chuan
-\ chuang chui chun chuo ci cong cou cu cuan cui cun cuo da dai dan dang
-\ dao de dei deng di dia dian diao die ding diu dong dou du duan dui dun
-\ duo 'e 'ei 'en 'er fa fan fang fe fei fen feng fiao fo fou fu ga gai
-\ gan gang gao ge gei gen geng gong gou gu gua guai guan guang gui gun
-\ guo ha hai han hang hao he hei hen heng hong hou hu hua huai huan huang
-\ hui hun huo 'i ji jia jian jiang jiao jie jin jing jiong jiu ju juan
-\ jue jun ka kai kan kang kao ke ken keng kong kou ku kua kuai kuan kuang
-\ kui kun kuo la lai lan lang lao le lei leng li lia lian liang liao lie
-\ lin ling liu long lou lu luan lue lun luo lv ma mai man mang mao me mei
-\ men meng mi mian miao mie min ming miu mo mou mu na nai nan nang nao ne
-\ nei nen neng 'ng ni nian niang niao nie nin ning niu nong nou nu nuan
-\ nue nuo nv 'o 'ou pa pai pan pang pao pei pen peng pi pian piao pie pin
-\ ping po pou pu qi qia qian qiang qiao qie qin qing qiong qiu qu quan
-\ que qun ran rang rao re ren reng ri rong rou ru ruan rui run ruo sa sai
-\ san sang sao se sen seng sha shai shan shang shao she shei shen sheng
-\ shi shou shu shua shuai shuan shuang shui shun shuo si song sou su suan
-\ sui sun suo ta tai tan tang tao te teng ti tian tiao tie ting tong tou
-\ tu tuan tui tun tuo 'u 'v wa wai wan wang wei wen weng wo wu xi xia
-\ xian xiang xiao xie xin xing xiong xiu xu xuan xue xun ya yan yang yao
-\ ye yi yin ying yo yong you yu yuan yue yun za zai zan zang zao ze zei
-\ zen zeng zha zhai zhan zhang zhao zhe zhen zheng zhi zhong zhou zhu
-\ zhua zhuai zhuan zhuang zhui zhun zhuo zi zong zou zu zuan zui zun zuo")
-endfunction
-
-function! s:vimim_quanpin_transform(pinyin)
-    if empty(s:quanpin_table)
-        for key in s:vimim_get_all_valid_pinyin_list()
-            if key[0] == "'"
-                let s:quanpin_table[key[1:]] = key[1:]
-            else
-                let s:quanpin_table[key] = key
-            endif
-        endfor
-        for shengmu in s:shengmu_list + split("zh ch sh")
-            let s:quanpin_table[shengmu] = shengmu
-        endfor
-    endif
-    let item = a:pinyin
-    let index = 0
-    let pinyinstr = ""
-    while index < len(item)
-        if item[index] !~ "[a-z]"
-            let index += 1
-            continue
-        endif
-        for i in range(6,1,-1)
-            let tmp = item[index : ]
-            if len(tmp) < i
-                continue
-            endif
-            let end = index+i
-            let matchstr = item[index : end-1]
-            if has_key(s:quanpin_table, matchstr)
-                let tempstr  = item[end-1 : end]
-                let tempstr2 = item[end-2 : end+1]
-                let tempstr3 = item[end-1 : end+1]
-                let tempstr4 = item[end-1 : end+2]
-                if (tempstr == "ge" && tempstr3 != "ger")
-                \ || (tempstr == "ne" && tempstr3 != "ner")
-                \ || (tempstr4 == "gong" || tempstr3 == "gou")
-                \ || (tempstr4 == "nong" || tempstr3 == "nou")
-                \ || (tempstr  == "ga"   || tempstr == "na")
-                \ ||  tempstr2 == "ier"  || tempstr == "ni"
-                \ ||  tempstr == "gu"    || tempstr == "nu"
-                    if has_key(s:quanpin_table, matchstr[:-2])
-                        let i -= 1
-                        let matchstr = matchstr[:-2]
-                    endif
-                endif
-                let pinyinstr .= "'" . s:quanpin_table[matchstr]
-                let index += i
-                break
-            elseif i == 1
-                let pinyinstr .= "'" . item[index]
-                let index += 1
-                break
-            else
-                continue
-            endif
-        endfor
-    endwhile
-    return pinyinstr[0] == "'" ? pinyinstr[1:] : pinyinstr
-endfunction
-
-function! s:vimim_more_pinyin_datafile(keyboard, sentence)
-    let results = []
-    let backend = s:backend[s:ui.root][s:ui.im]
-    for candidate in s:vimim_more_pinyin_candidates(a:keyboard)
-        let pattern = '^' . candidate . '\>'
-        let cursor = match(backend.lines, pattern, 0)
-        if cursor < 0
-            continue
-        elseif a:sentence
-            return [candidate]
-        endif
-        let oneline = get(backend.lines, cursor)
-        call extend(results, s:vimim_make_pairs(oneline))
-    endfor
-    return results
-endfunction
-
-function! s:vimim_get_pinyin(keyboard)
-    let keyboard = s:vimim_quanpin_transform(a:keyboard)
-    let results = split(keyboard, "'")
-    if len(results) > 1
-        return results
-    endif
-    return []
-endfunction
-
-function! s:vimim_more_pinyin_candidates(keyboard)
-    " make standard menu layout:  mamahuhu => mamahu, mama
-    if s:ui.im !~ 'pinyin'
-        return []
-    endif
-    let candidates = []
-    let keyboards = s:vimim_get_pinyin(a:keyboard)
-    if len(keyboards)
-        for i in reverse(range(len(keyboards)-1))
-            let candidate = join(keyboards[0 : i], "")
-            if !empty(candidate)
-                call add(candidates, candidate)
-            endif
-        endfor
-        if len(candidates) > 2
-            let candidates = candidates[0 : len(candidates)-2]
-        endif
-    endif
-    return candidates
-endfunction
-
-" ============================================= }}}
 let s:VimIM += [" ====  backend: file    ==== {{{"]
 " =================================================
 
@@ -685,7 +546,7 @@ function! s:vimim_set_datafile(im, datafile)
     let im = a:im
     if isdirectory(a:datafile) | return
     elseif im =~ '^wubi'       | let im = 'wubi'
-    elseif im =~ '^pinyin'     | let im = 'pinyin' | endif
+    endif
     let s:ui.root = 'datafile'
     let s:ui.im = im
     call insert(s:ui.frontends, [s:ui.root, s:ui.im])
@@ -698,27 +559,8 @@ function! s:vimim_set_datafile(im, datafile)
     let s:backend.datafile[im].lines = []
 endfunction
 
-function! s:vimim_sentence_datafile(keyboard)
-    let backend = s:backend[s:ui.root][s:ui.im]
-    let fuzzy = s:ui.im =~ 'pinyin' ? ' ' : ""
-    let pattern = '^\V' . a:keyboard . fuzzy
-    let cursor = match(backend.lines, pattern)
-    if cursor > -1 | return a:keyboard | endif
-    let candidates = s:vimim_more_pinyin_datafile(a:keyboard,1)
-    if !empty(candidates) | return get(candidates,0) | endif
-    let max = len(a:keyboard)
-    while max > 1
-        let max -= 1
-        let pattern = '^\V' . strpart(a:keyboard,0,max) . ' '
-        let cursor = match(backend.lines, pattern)
-        if cursor > -1 | break | endif
-    endwhile
-    return cursor < 0 ? "" : a:keyboard[: max-1]
-endfunction
-
 function! s:vimim_get_from_datafile(keyboard)
-    let fuzzy = s:ui.im =~ 'pinyin' ? ' ' : ""
-    let pattern = '^\V' . a:keyboard . fuzzy
+    let pattern = '^\V' . a:keyboard
     let backend = s:backend[s:ui.root][s:ui.im]
     let cursor = match(backend.lines, pattern)
     if cursor < 0 | return [] | endif
@@ -727,18 +569,16 @@ function! s:vimim_get_from_datafile(keyboard)
     if len(results) > 10
         return results
     endif
-    if s:ui.im =~ 'pinyin'
-        let extras = s:vimim_more_pinyin_datafile(a:keyboard,0)
-        let results = s:vimim_make_pairs(oneline) + extras
-    else
-        let results = []
-        let s:show_extra_menu = 1
-        for i in range(10)
-            let cursor += i
-            let oneline = get(backend.lines, cursor)
-            let results += s:vimim_make_pairs(oneline)
-        endfor
-    endif
+    let results = []
+    let s:show_extra_menu = 1
+    " 原本范围为 range(10)
+    for i in range(50)
+        let cursor += i
+        let oneline = get(backend.lines, cursor)
+        " 去除不匹配的结果，依赖码表顺序排列
+        if match(oneline, pattern) < 0 | break | endif
+        let results += s:vimim_make_pairs(oneline)
+    endfor
     return results
 endfunction
 
@@ -759,39 +599,7 @@ endfunction
 let s:VimIM += [" ====  backend: dir     ==== {{{"]
 " =================================================
 
-function! s:vimim_set_directory(dir)
-    let im = "pinyin"
-    let s:ui.root = 'directory'
-    let s:ui.im = im
-    call insert(s:ui.frontends, [s:ui.root, s:ui.im])
-    let s:backend.directory[im] = {}
-    let s:backend.directory[im].root = s:ui.root
-    let s:backend.directory[im].im = im
-    let s:backend.directory[im].name = a:dir
-    let s:backend.directory[im].keycode = s:keycodes[im]
-    let s:backend.directory[im].chinese = s:chinese(im)
-endfunction
-
-function! s:vimim_sentence_directory(keyboard, directory)
-    let filename = a:directory . a:keyboard
-    if filereadable(filename) | return a:keyboard | endif
-    let max = len(a:keyboard)
-    while max > 1
-        let max -= 1 " workaround: filereadable("/filename.") return true
-        let head = strpart(a:keyboard, 0, max)
-        let filename = a:directory . head
-        if filereadable(filename) && head[-1:-1] != "." | break | endif
-    endwhile
-    return filereadable(filename) ? a:keyboard[: max-1] : ""
-endfunction
-
 function! s:vimim_set_backend_embedded()
-    let dir = s:plugin . "pinyin"
-    if isdirectory(dir)
-        if filereadable(dir . "/pinyin")
-            return s:vimim_set_directory(dir . "/")
-        endif
-    endif
     for im in s:all_vimim_input_methods
         let datafile = s:vimim_filereadable("vimim." . im . ".txt")
         if empty(datafile)
@@ -1009,37 +817,19 @@ function! s:vimim_embedded_backend_engine(keyboard)
     if empty(s:ui.im) || empty(s:ui.root)
         return []
     endif
-    let head = 0
     let results = []
     let backend = s:backend[s:ui.root][s:ui.im]
-    if backend.name =~ "quote" && keyboard !~ "[']"
-        let keyboard = s:vimim_quanpin_transform(keyboard)
-    endif
-    if s:ui.root =~# "directory"
-        let head = s:vimim_sentence_directory(keyboard, backend.name)
-        let results = s:vimim_readfile(backend.name . head)
-        if keyboard ==# head && len(results) && len(results) < 20
-            let extras = []
-            for candidate in s:vimim_more_pinyin_candidates(keyboard)
-                let lines = s:vimim_readfile(backend.name . candidate)
-                let extras += map(lines, 'candidate." ".v:val')
-            endfor
-            let results = extras + map(results, 'keyboard." ".v:val')
-        endif
-    elseif s:ui.root =~# "datafile"
+    if s:ui.root =~# "datafile"
         if empty(backend.lines)
             let backend.lines = s:vimim_readfile(backend.name)
         endif
-        let head = s:vimim_sentence_datafile(keyboard)
-        let results = s:vimim_get_from_datafile(head)
+        " 这里原本有一份语句流处理的代码，但我不用这个，删了
+        " 作用是逐字查找可行的编码
+        let results = s:vimim_get_from_datafile(keyboard)
     endif
     if s:keyboard !~ '\S\s\S'
-        if empty(head)
-            let s:keyboard = keyboard
-        elseif len(head) < len(keyboard)
-            let tail = strpart(keyboard,len(head))
-            let s:keyboard = head . " " . tail
-        endif
+        " 这里同上一语句块内的注释
+        let s:keyboard = keyboard
     endif
     return results
 endfunction
