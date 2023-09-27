@@ -537,7 +537,7 @@ function! s:vimim_set_datafile(im, datafile)
 endfunction
 
 function! s:vimim_get_from_datafile(keyboard)
-    let pattern = '^\V' . a:keyboard
+    let pattern = '^\V' . a:keyboard . ' '
     let backend = s:backend[s:ui.root][s:ui.im]
     let cursor = match(backend.lines, pattern)
     if cursor < 0 | return [] | endif
