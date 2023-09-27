@@ -34703,6 +34703,7 @@ dme 夏
 dmeb 真假
 dmeb 夏侯
 dmeb 直白
+dmed 真值
 dmed 砂质
 dmee 赴任
 dmee 真僞
@@ -72723,6 +72724,7 @@ glle 𣤲
 glle 𤫠
 gllf 璪
 gllg 𱟟
+glli 或非
 gllj 𡙲
 glll 區
 glll 噩
@@ -86465,6 +86467,7 @@ hugc 斩关夺隘
 hugc 𥚿
 hugd 增大
 hugd 𡎤
+hugg 平替
 hugh 堘
 hugi 平面
 hugi 報酬
@@ -185198,6 +185201,7 @@ sflh 菫
 sflh 𡎸
 sflh 𡏳
 sflh 𡐷
+sfli 与非
 sflj 葍
 sflj 㬫
 sflj 𡿊

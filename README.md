@@ -30,6 +30,7 @@
 - [ ] 码表过滤
 - [ ] 字根查询
 - [ ] lua 重构与支持
+- [ ] 性能优化，将给出的码表存为二进制格式，随文本文件更新
 
 ## 配置
 
@@ -43,7 +44,7 @@ set imsearch=0
 
 目前仍是原 vimim-wb 的简化程度，使用的是作者正在使用的宇浩输入法，可以从[这里](https://code.google.com/archive/p/vimim/downloads?page=2)下载其他输入法码表，用以替换宇浩输入法
 
-使用[宇浩输入法v2.4.8](https://github.com/forFudan/yuhao)的 baidu 的简体简码码表，并进行了一定程度的修改，修改细节见[文档](./mabiao_diff.md)
+使用[宇浩输入法v2.5.0](https://github.com/forFudan/yuhao)的 baidu 的简体简码码表，并进行了一定程度的修改，修改细节见[文档](./mabiao_diff.md)
 
 ## 使用
 
