@@ -255,14 +255,16 @@ function! g:Vimim_page(key)
     sil!exe 'sil!return "' . key . '"'
 endfunction
 
-function! g:Wubi()
+function! g:Wubi(after_char)
     if s:gi_dynamic_on
         let s:gi_dynamic_on = 0 | return ""
     endif
-    " 四码顶屏 
-    let key = pumvisible() ? '\<C-E>' : ""
+    " 四码顶屏及唯一结果顶屏 
+    let key = pumvisible() && !a:after_char ? '\<C-E>' : ""
     if empty(len(get(split(s:keyboard),0))%4)
-        let key = pumvisible() ? '\<C-Y>' : key
+        if a:after_char && len(s:match_list) == 1 || !a:after_char
+            let key = pumvisible() ? '\<C-Y>' : key
+        endif
     endif
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -382,7 +384,8 @@ function! s:vimim_set_keyboard_maps()
     if both_dynamic
         for char in s:valid_keys
             sil!exe 'lnoremap<silent><buffer> ' . char . ' ' .
-            \ '<C-R>=g:Wubi()<CR>' . char . '<C-R>=g:Vimim()<CR>'
+            \ '<C-R>=g:Wubi(0)<CR>' . char . '<C-R>=g:Vimim()<CR><C-R>=g:Wubi(1)<CR>'
+            " 两次调用 Wubi ，第一次用于四码顶屏，第二次用于唯一匹配结果顶屏
         endfor
     elseif s:mode.static
         for char in s:valid_keys
@@ -833,6 +836,8 @@ function! s:vimim_plug_and_play()
     " vim 原生支持的语言切换键是 C-_ 和 C-^
     nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR><ESC>
     inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
+    " 希望加入命令模式下的支持
+    " cnoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
 endfunction
 
 sil!call s:vimim_initialize_global()

@@ -2818,8 +2818,8 @@ afsr 捕获
 afte 过来人
 afte 投标人
 afte 投標人
-aftn 搭桥铺路
 aftn 下一个
+aftn 搭桥铺路
 aftr 歌功颂德
 aftr 歌功頌德
 afts 投机钻营
@@ -39310,6 +39310,7 @@ dvde 戴维斯
 dvdh 𥖫
 dvdi 𩡰
 dvdm 盛夏
+dvdm 成真
 dvdm 駿馬
 dvdm 䫆
 dvdm 𥀻
@@ -39322,6 +39323,7 @@ dvdv 𩅭
 dvdx 破绽百出
 dvdy 不及其餘
 dvdy 𥀽
+dveb 成假
 dvee 電子郵件
 dvef 破例
 dveg 盛傳
@@ -52791,6 +52793,7 @@ fagd 三环
 fage 无可奈何
 fage 无可替代
 fage 天下大亂
+fagf 析取式
 fagg 𫼁
 fagh 万事大吉
 fagh 天下太平
@@ -53004,6 +53007,7 @@ fase 三花
 fase 三資
 fase 三藥
 fasf 三厢
+fasg 析取范式
 fasg 村头
 fash 三菱
 fash 一抔黄土
@@ -54493,6 +54497,7 @@ fe 格
 fe 格子
 fe 格外
 feaa 攻打
+feab 析取
 feab 攻取
 feac 板寸
 feac 柎
@@ -59121,8 +59126,8 @@ fktl 𩇽
 fktl 𱒑
 fktm 𠛥
 fktm 𧢮
-fktn 两用
 fktn 两个
+fktn 两用
 fktn 𮭹
 fktn 𰙠
 fktp 天上人间
@@ -153099,6 +153104,7 @@ pbew 初爲
 pbf 阕
 pbfa 初三
 pbfc 初五
+pbfd 变项
 pbff 痛楚
 pbfg 阕
 pbfg 变天
@@ -171825,6 +171831,7 @@ rfgd 𢓍
 rfgd 𪟩
 rfge 微軟
 rfge 𣢸
+rfgf 多项式
 rfgg 饯
 rfgg 奥格瑞玛
 rfgg 風琴
@@ -229787,6 +229794,7 @@ whfe 脚板
 whff 脚本
 whfg 周天
 whfg 包青天
+whfh 脚标
 whfi 周一
 whfi 週一
 whfn 周正
@@ -243420,6 +243428,7 @@ yaew 恃才傲物
 yaff 鸟林
 yaft 鸟枪
 yafx 𢗙
+yagf 合取式
 yagg 𢟘
 yagj 𩞷
 yags 食指大动
@@ -243478,6 +243487,7 @@ yari 𢙘
 yarm 𦔰
 yaro 豺狼
 yars 餌
+yasg 合取范式
 yasn 𱞾
 yasr 色授魂與
 yass 色授魂与
@@ -244420,6 +244430,7 @@ ydyx 𰑰
 ye 合
 ye 合作
 ye 合理
+yeab 合取
 yeac 㤔
 yeac 𢚃
 yeac 𩚭
