@@ -786,6 +786,7 @@ abhh 撥款
 abhk 握
 abhl 择吉
 abhl 招遠
+abhn 取址
 abhm 取到
 abho 𪠱
 abhs 扭转
@@ -8541,7 +8542,6 @@ arsw 批准
 arsx 指节
 arta 耳钉
 artd 指针
-artd 耳针
 arte 撰稿人
 arte 擬人
 artf 指印
@@ -40709,8 +40709,8 @@ dxou 雪灾
 dxou 協商
 dxov 码字
 dxov 码率
-dxow 不以为然
 dxow 协调
+dxow 不以为然
 dxow 勘察
 dxow 不以為然
 dxow 甚為
@@ -47225,6 +47225,7 @@ eneb 絛
 eneb 絛
 enec 爲國爲民
 enec 㛜
+ened 返回值
 enee 𠎁
 enef 條
 enef 促使
@@ -64769,6 +64770,7 @@ fsux 𣓣
 fsva 开练
 fsvf 横线
 fsvf 开线
+fsvg 形参
 fsvg 𢏗
 fsvh 开垦
 fsvi 开编
@@ -101460,6 +101462,7 @@ ixnh 泼墨
 ixof 泼辣
 ixot 泤
 ixou 添加劑
+ixpc 立即数
 ixpn 津门
 ixpt 添加剂
 ixqc 㴫
@@ -142578,8 +142581,8 @@ ocyy 𮙊
 od 家
 od 家庭
 od 家伙
-odab 割据
 odab 读取
+odab 割据
 odab 割切
 odab 孰不可忍
 odac 诪
@@ -144632,8 +144635,8 @@ ognl 方圆
 ognl 寄回
 ognl 方圓
 ognl 寶圖
-ognm 方步
 ognm 主频
+ognm 方步
 ognm 主頻
 ognq 宝鉴
 ogo 宝
@@ -149479,6 +149482,7 @@ osuw 赛前
 osuw 賽前
 osv 宏
 osvf 高压线
+osvg 实参
 osvh 实绩
 osvi 𰵖
 osvk 塞子
@@ -190036,8 +190040,8 @@ sn 存
 sn 存在
 sn 存款
 sna 萵
-snab 在握
 snab 存取
+snab 在握
 snae 存折
 snae 在聽
 snag 在聽

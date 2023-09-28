@@ -61,6 +61,8 @@ function! s:vimim_initialize_global()
     let s:rc["g:Vimim_toggle"] = 0
     let s:rc["g:Vimim_plugin"] = s:plugin
     let s:rc["g:Vimim_punctuation"] = 1
+    " 新增变量，用于确定匹配唯一时是否自动上屏
+    let s:rc["g:Vimim_AutoConfirmInput"] = 1
     " 设置默认选项
     call s:vimim_set_global_default()
 
@@ -140,6 +142,8 @@ let s:VimIM += [" ====  user interface   ==== {{{"]
 
 function! s:vimim_dictionary_punctuations()
     let s:antonym = " 〖〗 （） 《》 【】 "
+    " 计划添加
+    " let s:antonym = " 『』 （） 《》 「」 "
     let one =       " { }  ( )  < >  [  ] "
     let two = join(split(join(split(s:antonym)[:3],''),'\zs'))
     let antonyms = s:vimim_key_value_hash(one, two)
@@ -262,7 +266,7 @@ function! g:Wubi(after_char)
     " 四码顶屏及唯一结果顶屏 
     let key = pumvisible() && !a:after_char ? '\<C-E>' : ""
     if empty(len(get(split(s:keyboard),0))%4)
-        if a:after_char && len(s:match_list) == 1 || !a:after_char
+        if g:Vimim_AutoConfirmInput && a:after_char && len(s:match_list) == 1 || !a:after_char
             let key = pumvisible() ? '\<C-Y>' : key
         endif
     endif
@@ -376,16 +380,24 @@ function! s:vimim_set_keyboard_maps()
     let s:single_quotes_toggle_status = 0
     let s:double_quotes_toggle_status = 0
 
+    " 新增输入时插入大写字母自动按下空格的操作，且加入空格分隔字母与汉字
+    let caps_letter = split("ABCDEFGHIJKLMNOPQRSTUVWXYZ", '\zs')
+    for char in caps_letter
+        sil!exe 'lnoremap<silent><buffer> ' . char . " <C-R>=pumvisible()? g:Vimim_space() . ' " . char . "' : '" . char . "'<CR>"
+    endfor
+
     let both_dynamic = s:mode.dynamic ? 1 : 0
     " 取消加减翻页的功能，改用方括号翻页
     " let common_punctuations = split("] [ = -")
     let common_punctuations = split("] [")
-    let common_labels = s:ui.im =~ 'phonetic' ? [] : range(10)
+    " let common_labels = s:ui.im =~ 'phonetic' ? [] : range(10)
+    let common_labels = range(10)
     if both_dynamic
         for char in s:valid_keys
             sil!exe 'lnoremap<silent><buffer> ' . char . ' ' .
             \ '<C-R>=g:Wubi(0)<CR>' . char . '<C-R>=g:Vimim()<CR><C-R>=g:Wubi(1)<CR>'
-            " 两次调用 Wubi ，第一次用于四码顶屏，第二次用于唯一匹配结果顶屏
+            " 两次调用 Wubi ，第一次用于四码顶屏，第二次用于唯一匹配结果顶屏，可设置
+            " BUG: 上面这句话在输入可设置时会自动换行
         endfor
     elseif s:mode.static
         for char in s:valid_keys
@@ -450,6 +462,11 @@ function! s:vimim_get_seamless(cursor_positions)
         endif
     endfor
     return seamless_column
+endfunction
+
+function! g:Vimim_toggle_auto_mode()
+    let g:Vimim_AutoConfirmInput = g:Vimim_AutoConfirmInput? 0: 1
+    return ""
 endfunction
 
 " ============================================= }}}
@@ -698,7 +715,8 @@ if a:start
         while start_column
             if before =~# valid_keyboard
                 let start_column -= 1
-                if before !~# "[0-9']" || s:ui.im =~ 'phonetic'
+                " if before !~# "[0-9']" || s:ui.im =~ 'phonetic'
+                if before !~# "[0-9']"
                     let last_seen_nonsense_column = start_column
                     let all_digit = all_digit ? 0 : all_digit
                 endif
@@ -756,18 +774,20 @@ endfunction
 
 function! s:vimim_popupmenu_list(lines)
     let s:match_list = a:lines
-    let keyboards = split(s:keyboard)  " mmmm => ['m',"m'm'm"]
-    let keyboard = join(keyboards,"")
-    let tail = len(keyboards) < 2 ? "" : get(keyboards,1)
+    " 简化如下两句，因为形码似乎用不上这种划分吧？虽然也没搞懂这是干嘛的
+    " let keyboards = split(s:keyboard)  " mmmm => ['m',"m'm'm"]
+    " let keyboard = join(keyboards,"")
+    let keyboard = s:keyboard
+    " let tail = len(keyboards) < 2 ? "" : get(keyboards,1)
     if empty(a:lines) || type(a:lines) != type([])
         return []
     endif
-    let label = 1
-    let one_list = []
+    " let label = 1
+    " let one_list = []
     let s:popup_list = []
     for chinese in s:match_list
         let complete_items = {}
-        let titleline = s:vimim_get_label(label)
+        " let titleline = s:vimim_get_label(label)
         let menu = ""
         let pairs = split(chinese)
         let pair_left = get(pairs,0)
@@ -775,12 +795,13 @@ function! s:vimim_popupmenu_list(lines)
             let chinese = get(pairs,1)
             let menu = s:show_extra_menu ? pair_left : menu
         endif
-        let label2 = ' '
-        let titleline = printf('%3s ', label2 . titleline)
-        let chinese .= empty(tail) || tail == "'" ? '' : tail
-        let complete_items["abbr"] = titleline . chinese
+        " let label2 = ' '
+        " let titleline = printf('%3s ', label2 . titleline)
+        " let chinese .= empty(tail) || tail == "'" ? '' : tail
+        " let complete_items["abbr"] = titleline . chinese
+        let complete_items["abbr"] = printf('%-8s', chinese)
         let complete_items["menu"] = menu
-        let label += 1
+        " let label += 1
         let complete_items["dup"] = 1
         let complete_items["word"] = empty(chinese) ? s:space : chinese
         call add(s:popup_list, complete_items)
@@ -838,6 +859,8 @@ function! s:vimim_plug_and_play()
     inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
     " 希望加入命令模式下的支持
     " cnoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
+    nnoremap <silent> <M-j> <CMD>call g:Vimim_toggle_auto_mode()<CR>
+    inoremap <unique> <M-j> <C-R>=g:Vimim_toggle_auto_mode()<CR>
 endfunction
 
 sil!call s:vimim_initialize_global()
