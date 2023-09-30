@@ -11059,6 +11059,7 @@ awps 下脚料
 awps 下腳料
 awpt 拘挛
 awpu 瓦窯
+awpw 推文
 awpw 瓦窑
 awpx 推断
 awq 攒
@@ -50183,6 +50184,7 @@ ethb 使用者組
 ethc 低地
 ethd 乳臭未乾
 ethe 伥
+ethg 作用域
 ethh 乳臭未干
 ethh 信用社
 ethh 价款
@@ -57778,8 +57780,8 @@ fiwi 远渡重洋
 fiwi 远涉重洋
 fiwj 救济金
 fiwj 救濟金
-fiwk 一泻千里
 fiwk 一千
+fiwk 一泻千里
 fiwk 一瀉千里
 fiwk 一動
 fiwl 一句
@@ -95909,6 +95911,7 @@ imye 𱪐
 imyi 滤
 imyl 𣽊
 imym 濬
+imym 沙盒
 imym 𣿰
 imys 消食
 imyt 消解
@@ -145427,6 +145430,7 @@ oiov 谙熟
 oiox 㵷
 oipm 高粱米
 oips 访亲问友
+oipu 语法糖
 oiqc 𬣱
 oiqd 高潮迭起
 oiqi 诗酒风流
@@ -248458,6 +248462,7 @@ yqkw 𢥣
 yqkx 𰴕
 yqlg 争风吃醋
 yqlk 冗员
+yqll 解释器
 yqll 飾品
 yqll 𢠑
 yqlm 冗員
