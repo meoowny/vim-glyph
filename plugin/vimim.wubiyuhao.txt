@@ -139271,6 +139271,7 @@ npie 過户
 npie 過激
 npie 過戶
 npif 過江
+npih 黑魔法
 npih 柴米油盐
 npij 過意
 npim 過濾
@@ -165420,9 +165421,9 @@ qmif 血親
 qmif 血灑
 qmif 血汙
 qmig 鱼目混珠
+qmih 算法
 qmih 血汗
 qmih 血清
-qmih 算法
 qmih 算清
 qmih 血渍
 qmih 血漬
@@ -249555,6 +249556,7 @@ ytdm 𩓅
 ytdp 角逐
 ytdq 𧤳
 ytds 餘震
+ytdt 解耦
 ytdu 触碰
 ytdu 觸碰
 ytdu 𧤲
