@@ -859,8 +859,8 @@ function! s:vimim_plug_and_play()
     inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
     " 希望加入命令模式下的支持
     " cnoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
-    nnoremap <silent> <M-j> <CMD>call g:Vimim_toggle_auto_mode()<CR>
-    inoremap <unique> <M-j> <C-R>=g:Vimim_toggle_auto_mode()<CR>
+    nnoremap <silent> <M-o> <CMD>call g:Vimim_toggle_auto_mode()<CR>
+    inoremap <unique> <M-o> <C-R>=g:Vimim_toggle_auto_mode()<CR>
 endfunction
 
 sil!call s:vimim_initialize_global()
