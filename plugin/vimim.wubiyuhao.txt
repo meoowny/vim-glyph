@@ -17772,6 +17772,7 @@ brew 總的
 brew 𡳺
 brey 總
 brfb 𢾂
+brfd 尾项
 brfd 𫵩
 brfe 總攻
 brff 𡳭
@@ -60183,6 +60184,7 @@ fmcs 相异
 fmcs 相隨
 fmct 相除
 fmcu 兩隊
+fmcv 想好
 fmcv 相好
 fmcx 正当防卫
 fmdb 想起
@@ -148602,6 +148604,7 @@ oriv 谐波
 orj 诣
 orjb 寫照
 orjd 哀豔
+orjf 它的
 orjf 话题
 orjo 寫景
 orjr 诣
@@ -164859,6 +164862,7 @@ qkqg 𥱁
 qkqh 竹竿
 qkqi 竹籠
 qkqj 𭂵
+qkqk 竹笛
 qkqk 竹筒
 qkqk 竹簡
 qkqk 𧔗
@@ -207925,6 +207929,7 @@ ucai 𤇜
 ucai 𫅒
 ucal 㢌
 ucat 妆扮
+ucba 序对
 ucbb 𢊨
 ucbg 羓
 ucbo 𤆵
@@ -216306,6 +216311,7 @@ utfb 詅
 utfb 炩
 utfb 㡵
 utfb 羚
+utfd 首项
 utfd 座標
 utfd 導標
 utfd 說項
