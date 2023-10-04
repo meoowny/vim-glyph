@@ -49,8 +49,7 @@ function! s:vimim_initialize_global()
     let s:seamless_positions = []
     let s:starts = { 'row' : 0, 'column' : 1 }
     let s:abcd = split("'abcdvfgxz", '\zs')
-    let s:az_list = map(range(97,122),"nr2char(".'v:val'.")")
-    let s:valid_keys = s:az_list
+    let s:valid_keys = map(range(97,122),"nr2char(".'v:val'.")")
     let s:valid_keyboard = "[0-9a-z]"
     let s:pumheights = { 'current' : &pumheight, 'saved' : &pumheight }
     let s:backend = { 'datafile' : {}, 'directory' : {} }
@@ -59,26 +58,24 @@ function! s:vimim_initialize_global()
     " s:rc 项可供用户设置，但是需要在插件加载完毕后进行
     let s:rc = {}
     let s:rc["g:Vimim_toggle"] = 0
-    let s:rc["g:Vimim_plugin"] = s:plugin
     let s:rc["g:Vimim_punctuation"] = 1
     " 新增变量，用于确定匹配唯一时是否自动上屏
     let s:rc["g:Vimim_AutoConfirmInput"] = 1
     " 设置默认选项
     call s:vimim_set_global_default()
 
-    let s:plugin = isdirectory(g:Vimim_plugin) ? g:Vimim_plugin : s:plugin
     let s:plugin = s:plugin[-1:] != "/" ? s:plugin."/" : s:plugin
+
     let s:dynamic    = {'dynamic':1,'static':0}
     let s:static     = {'dynamic':0,'static':1}
 endfunction
 
 function! s:vimim_dictionary_keycodes()
     let s:keycodes = {}
-    for key in split('wubi')
+    for key in split('yuhao')
         let s:keycodes[key] = "[a-z]"
     endfor
-    let ime  = ' wubiyuhao'
-    let s:all_vimim_input_methods = keys(s:keycodes) + split(ime)
+    let s:all_vimim_input_methods = keys(s:keycodes)
 endfunction
 
 function! s:vimim_set_frontend()
@@ -188,19 +185,10 @@ function! s:vimim_set_pumheight()
 endfunction
 
 function! s:vimim_im_chinese()
-    if empty(s:ui.im)
-        return "==broken interface to vim=="
+    if empty(s:ui.im) | return "==broken interface to vim=="
     endif
     let backend = s:backend[s:ui.root][s:ui.im]
-    let title = has_key(s:keycodes, s:ui.im) ? backend.chinese : ''
-    if s:ui.im =~ 'wubi'
-        for wubi in split('wubihf wubiyuhao')
-            if get(split(backend.name, '/'),-1) =~ wubi
-                let title .= '_' . s:chinese(wubi)
-            endif
-        endfor
-    endif
-    return title
+    return has_key(s:keycodes, s:ui.im) ? backend.chinese : ''
 endfunction
 
 function! g:Vimim_esc()
@@ -260,9 +248,6 @@ function! g:Vimim_page(key)
 endfunction
 
 function! g:Wubi(after_char)
-    if s:gi_dynamic_on
-        let s:gi_dynamic_on = 0 | return ""
-    endif
     " 四码顶屏及唯一结果顶屏 
     let key = pumvisible() && !a:after_char ? '\<C-E>' : ""
     if empty(len(get(split(s:keyboard),0))%4)
@@ -277,11 +262,8 @@ endfunction
 function! s:vimim_punctuation_maps()
     for _ in keys(s:all_evils)
         if _ !~ s:valid_keyboard
-            if _ == "'"
-                exe "lnoremap<buffer><expr> "._.' g:Punctuation("'._.'")'
-            else
-                exe "lnoremap<buffer><expr> "._." g:Punctuation('"._."')"
-            endif
+            let quote = _ == "'"? '"': "'"
+            exe "lnoremap<buffer><expr> "._.' g:Punctuation('.quote._.quote.')'
         endif
     endfor
 endfunction
@@ -290,34 +272,26 @@ endfunction
 function! g:Punctuation(key)
     let key = a:key
 
-    if s:toggle_punctuation > 0
-        if pumvisible() || getline(".")[col(".")-2] !~ '\w'
-            if has_key(s:punctuations, a:key)
-                let key = s:punctuations[a:key]
-                if a:key == '"'
-                    let key = split(key, '\zs')[s:double_quotes_toggle_status]
-                    let s:double_quotes_toggle_status = (s:double_quotes_toggle_status + 1) % 2
-                elseif a:key == "'"
-                    let key = split(key, '\zs')[s:single_quotes_toggle_status]
-                    let s:single_quotes_toggle_status = (s:single_quotes_toggle_status + 1) % 2
-                endif
+    if s:toggle_punctuation > 0 && (pumvisible() || getline(".")[col(".")-2] !~ '\w')
+        if has_key(s:punctuations, a:key)
+            let key = s:punctuations[a:key]
+            if a:key == '"'
+                let key = split(key, '\zs')[s:double_quotes_toggle_status]
+                let s:double_quotes_toggle_status = (s:double_quotes_toggle_status + 1) % 2
+            elseif a:key == "'"
+                let key = split(key, '\zs')[s:single_quotes_toggle_status]
+                let s:single_quotes_toggle_status = (s:single_quotes_toggle_status + 1) % 2
             endif
-            if pumvisible()
-                let key = '\<C-Y>'.key
-            endif
+        endif
+        if pumvisible()
+            let key = '\<C-Y>'.key
         endif
     endif
-    if pumvisible()
-        " 三选，四选 
-        if a:key == ";"
-            let key = '\<C-N>\<C-Y>' 
-        elseif a:key == "'"
-            let key = '\<C-N>\<C-N>\<C-Y>' 
-        elseif a:key == "\t"
-            let key = '\<C-N>\<C-N>\<C-N>\<C-Y>' 
-        else
-            let key = key
-        endif
+
+    " 三选，四选 
+    let select_key = {";": 1, "'": 2, "\t": 3}
+    if pumvisible() && has_key(select_key, a:key)
+        let key = repeat('\<C-N>', select_key[a:key]) . '\<C-Y>'
     endif
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -331,8 +305,6 @@ function! g:Vimim_space()
         let key = '\<C-R>=g:Vimim()\<CR>'
         let cursor = s:mode.static ? '\<C-P>\<C-N>' : ''
         let key = cursor . '\<C-Y>' . key
-    elseif s:pattern_not_found
-    elseif s:mode.dynamic
     elseif s:mode.static
         let key = s:vimim_left() ? g:Vimim() : key
     elseif s:seamless_positions == getpos(".")
@@ -542,7 +514,7 @@ let s:VimIM += [" ====  backend: file    ==== {{{"]
 function! s:vimim_set_datafile(im, datafile)
     let im = a:im
     if isdirectory(a:datafile) | return
-    elseif im =~ '^wubi'       | let im = 'wubi'
+    elseif im =~ '^yuhao'       | let im = 'yuhao'
     endif
     let s:ui.root = 'datafile'
     let s:ui.im = im
@@ -679,7 +651,6 @@ function! s:vimim_reset_before_anything()
     let s:switch = 0
     let s:toggle_im = 0
     let s:smart_enter = 0
-    let s:gi_dynamic_on = 0
     let s:toggle_punctuation = 1
     let s:popup_list = []
 endfunction
