@@ -12013,8 +12013,8 @@ aykc 蛰虫
 aykd 热电
 ayke 𢷳
 aykf 抛開
-aykg 換
 aykg 换
+aykg 換
 aykg 下情上达
 aykg 执业
 aykh 下情上達
@@ -114074,6 +114074,7 @@ kman 𨳒
 kman 𧌧
 kmaq 督撫
 kmas 尗
+kmax 卡顿
 kmay 贴换
 kmb 叔
 kmbc 蛽
@@ -148070,6 +148071,7 @@ oqld 讥嘲
 oqld 𬀚
 oqle 𣄨
 oqlk 宇航员
+oqll 字符串
 oqll 计算器
 oqlm 诈唬
 oqlm 宇航員
@@ -148604,7 +148606,7 @@ oriv 谐波
 orj 诣
 orjb 寫照
 orjd 哀豔
-orjf 它的
+orjf 它是
 orjf 话题
 orjo 寫景
 orjr 诣
@@ -179151,6 +179153,7 @@ ruex 乘务
 ruex 𤠜
 ruey 㣹
 ruf 狮
+rufa 得道于
 rufb 行道树
 rufc 毛将焉附
 rufd 行道樹
