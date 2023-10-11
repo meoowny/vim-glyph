@@ -695,8 +695,8 @@ abeb 取反
 abeb 𣀒
 abec 鄹
 abec 𨞮
-abed 择优
 abed 取值
+abed 择优
 abed 批發價
 abeg 取代
 abeh 𡒍
@@ -83552,6 +83552,7 @@ hohc 辖地
 hohd 较坏
 hohd 老於世故
 hohe 壕堑
+hohg 辖域
 hohi 末世
 hohk 𮵞
 hohl 辖
@@ -244561,6 +244562,7 @@ yefy 懚
 yefy 䭡
 yeg 惶
 yegd 𭜠
+yegf 合式
 yegf 合奏
 yegk 合理
 yegk 合规
