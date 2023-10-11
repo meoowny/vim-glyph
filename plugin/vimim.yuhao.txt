@@ -153126,6 +153126,7 @@ pbff 痛楚
 pbfg 阕
 pbfg 变天
 pbfg 䙆
+pbfh 变元
 pbfh 断壁残垣
 pbfi 初一
 pbfj 变更
