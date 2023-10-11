@@ -138543,6 +138543,7 @@ nmew 𮢸
 nmex 常务
 nmf 圜
 nmfb 𠭓
+nmfd 常项
 nmfe 賞析
 nmfe 賞格
 nmfl 點頭
