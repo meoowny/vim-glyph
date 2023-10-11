@@ -57259,6 +57259,7 @@ ficn 桜
 fico 一院
 fico 工学院
 ficq 攀龍附鳳
+fict 一阶
 fict 一队
 ficu 一隊
 ficv 无产阶级
