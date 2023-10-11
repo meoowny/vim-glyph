@@ -111014,8 +111014,8 @@ kfdu 開礦
 kfdv 贱卖
 kfdw 同期
 kfe 蜥
-kfed 同质
 kfed 赋值
+kfed 同质
 kfed 開價
 kfee 同質
 kfef 虹彩
