@@ -111431,6 +111431,7 @@ kfta 上无片瓦
 kftb 赋分
 kfte 贱人
 kfte 同人
+kftf 同余
 kftf 開會
 kftf 開印
 kftf 開創
