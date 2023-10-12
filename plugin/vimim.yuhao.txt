@@ -142078,6 +142078,7 @@ obei 官位
 obek 安居樂業
 obem 官爵
 obeo 记住
+obeq 记作
 obeq 译作
 obet 官价
 obev 诵佛
