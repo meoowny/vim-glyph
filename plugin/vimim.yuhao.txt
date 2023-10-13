@@ -45668,6 +45668,7 @@ eitu 作法自斃
 eitu 𢮣
 eitx 化学键
 eiub 偏廢
+eiuc 偏序
 eiuf 偏差
 eium 欠着
 eiuo 儦
