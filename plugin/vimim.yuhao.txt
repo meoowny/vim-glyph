@@ -42028,6 +42028,7 @@ ebmu 白虎
 ebmv 白眼
 ebmv 𠇛
 ebmw 𠋱
+ebmx 仅当
 ebne 白鹭
 ebne 白鷺
 ebne 𡕽
@@ -44155,6 +44156,7 @@ efpr 后窗
 efps 釉料
 efpt 𣁝
 efpv 便被
+efpw 后文
 efpw 条文
 efpw 例文
 efpw 亂頭粗服
@@ -59339,9 +59341,9 @@ flcm 一叶障目
 flcn 𡝁
 flco 頭陀
 flco 樓院
+flct 整除
 flct 逼婚
 flct 整队
-flct 整除
 flct 頭婚
 flcu 整隊
 flcv 豆奶
@@ -131132,6 +131134,7 @@ mmef 𮯓
 mmeh 贁
 mmeh 𭐯
 mmen 貼條
+mmem 当且仅当
 mmeo 罩住
 mmeo 眼見爲實
 mmeo 懸停
@@ -245202,6 +245205,7 @@ yfpw 杂文
 yfqa 九年
 yfqf 𢛢
 yfqg 師範
+yfqh 恒等
 yfqp 𠂶
 yfqr 快板儿
 yfqy 𢟈
