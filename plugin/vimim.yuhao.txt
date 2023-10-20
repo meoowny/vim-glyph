@@ -11627,8 +11627,8 @@ axti 𢪹
 axti 𰓊
 axtm 报销
 axtn 报个
-axts 下马看花
 axts 报错
+axts 下马看花
 axtt 𪮋
 axtu 扎手
 axtx 击键
@@ -25619,6 +25619,7 @@ csfy 𢢠
 csgc 隨車
 csgd 媆
 csgd 陾
+csgl 异或
 csgo 如臨大敵
 csgp 𡣻
 csgv 𬯐
@@ -152988,6 +152989,7 @@ pavo 麻纺
 pavq 精打细算
 pavt 衬纸
 pavu 𫃗
+pawc 闭包
 pawc 数据包
 pawf 数据集
 pawi 间接选举
@@ -222955,6 +222957,7 @@ vmtb 组分
 vmte 组人
 vmth 组长
 vmto 纱锭
+vmts 组会
 vmua 纱灯
 vmug 𢏯
 vmuh 组装
