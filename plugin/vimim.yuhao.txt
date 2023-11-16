@@ -1587,6 +1587,7 @@ adjr 瓸
 adjr 𢫦
 adjs 拢岸
 adjt 擂
+adjt 下确界
 adjv 㨴
 adjw 𢴿
 adjw 𢵕
@@ -4933,6 +4934,7 @@ akjr 㧺
 akjr 𢵧
 akjr 𦗬
 akjs 下山
+akjt 下界
 akjt 下田
 akk 下
 akka 下
@@ -54280,6 +54282,7 @@ fdrl 无名
 fdrl 政协委员
 fdrl 政協委員
 fdrm 无利
+fdrn 无向
 fdro 功成名就
 fdro 无往
 fdro 𮬫
@@ -57358,6 +57361,7 @@ fifg 一天
 fifg 一盏
 fifg 一樁
 fifh 一元
+fifi 一一
 fifj 一棵
 fifk 一潭死水
 fifk 一两
@@ -110420,6 +110424,7 @@ kdjf 电量
 kdjn 𫔥
 kdjo 电影
 kdjr 蛨
+kdjt 上确界
 kdjt 𧒽
 kdjt 𨷏
 kdjy 电晕
@@ -125293,8 +125298,8 @@ ltnw 中长跑
 lto 吟
 ltob 呤
 ltob 吟诵
-ltod 咱家
 ltod 只读
+ltod 咱家
 ltoh 吟诗
 ltok 只让
 ltok 𰇲
@@ -150815,6 +150820,7 @@ ouwb 谫
 ouwb 𡦽
 ouwd 谦卑
 ouwd 齊腰
+ouwf 商集
 ouwf 齊集
 ouwf 商鋪
 ouwh 商周
@@ -177382,6 +177388,7 @@ rrgm 微循環
 rrgm 猙獰面目
 rrgn 𢓯
 rrgn 𮳁
+rrgo 多态
 rrgo 比較
 rrgp 多达
 rrgs 𡖮
@@ -182362,6 +182369,7 @@ sbey 友愛
 sbf 葵
 sbfa 腎盂
 sbfa 𮒴
+sbfb 二叉树
 sbfb 花紅柳綠
 sbfc 𮓍
 sbfd 决无
@@ -195775,6 +195783,7 @@ swpu 緊身褲
 swpw 散文
 swpw 舊文
 swpw 𬂑
+swpx 有穷
 swpy 郁闷
 swpy 散闷
 swq 冼
@@ -195831,6 +195840,7 @@ swrl 郁积
 swrl 警种
 swrm 有利
 swrm 𣮠
+swrn 有向
 swro 鴱
 swro 䳑
 swrq 有疑
@@ -209596,8 +209606,8 @@ ugap 关过
 ugaq 試播
 ugar 鷷
 ugar 𧪇
-ugau 尊严
 ugau 关联
+ugau 尊严
 ugav 𱂇
 ugaw 前車可鑑
 ugax 拳击
@@ -216086,8 +216096,8 @@ uswd 𲁸
 uswe 䜘
 uswe 𢊰
 uswe 𧭅
-uswf 烟灰缸
 uswf 并集
+uswf 烟灰缸
 uswf 謀殺
 uswf 護膝
 uswf 煙灰缸
