@@ -111499,6 +111499,7 @@ kfvq 同鄉
 kfvs 𢍭
 kfvs 𬂞
 kfvv 同级
+kfwd 同胚
 kfwg 同生
 kfwi 開鏡
 kfwi 𱁇
@@ -222245,7 +222246,7 @@ vkms 函購
 vkmx 承当
 vkmx 子虛
 vknb 纳贤
-vkne 子路
+vkne 子图
 vknj 承當
 vknm 纲常
 vkoe 纸上谈兵
