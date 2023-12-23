@@ -3777,6 +3777,7 @@ ahyy 寸土必争
 ai 接
 ai 接受
 ai 接口
+aiab 拉取
 aiab 接招
 aiad 拉拢
 aiad 搅扰
@@ -11174,10 +11175,10 @@ awua 㨱
 awua 𮘱
 awub 拘攣
 awuf 捨生忘死
+awug 推送
+awug 抱拳
 awug 亚特兰大
 awug 抱养
-awug 抱拳
-awug 推送
 awug 拘謹
 awug 抱養
 awug 𢲂
