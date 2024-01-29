@@ -148623,8 +148623,8 @@ oriv 谐波
 orj 诣
 orjb 寫照
 orjd 哀豔
-orjf 它是
 orjf 话题
+orjf 它是
 orjo 寫景
 orjr 诣
 orjw 寫明
@@ -219949,8 +219949,8 @@ vara 那行
 vare 绕舌
 varg 弭
 varj 那得
-varl 纯种
 varl 那种
+varl 纯种
 varm 纯利
 varm 纯毛
 varq 那兒
