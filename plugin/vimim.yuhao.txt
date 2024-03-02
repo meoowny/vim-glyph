@@ -153076,8 +153076,8 @@ pbcn 𫰥
 pbcn 𲈸
 pbcr 初階
 pbcs 变异
-pbct 初婚
 pbct 初阶
+pbct 初婚
 pbcv 初始
 pbcv 癖好
 pbcv 变好
@@ -200777,7 +200777,7 @@ tiyy 余音袅袅
 tj 留
 tj 留下
 tj 留恋
-tja 齉
+tja 鼻
 tjaa 齀
 tjaa 𪖭
 tjaa 𪗃
