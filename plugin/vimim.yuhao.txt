@@ -5355,9 +5355,9 @@ alcn 𡞺
 alco 职院
 alcq 事務
 alcs 歌姬
+alct 排除
 alct 排队
 alct 扣除
-alct 排除
 alcu 排隊
 alcv 可好
 alcy 可也
@@ -52202,9 +52202,9 @@ eycn 爱女
 eycn 愛女
 eycs 爱姬
 eycs 愛姬
+eycv 你好
 eycv 爱好
 eycv 您好
-eycv 你好
 eycv 受限
 eycv 愛好
 eycy 你也
@@ -58818,8 +58818,8 @@ fkif 椒江
 fkif 麗江
 fkih 一败涂地
 fkih 两清
-fkij 逼上梁山
 fkij 两端
+fkij 逼上梁山
 fkik 桐油
 fkil 两部
 fkim 核电站
@@ -175584,8 +175584,8 @@ rmvn 𩗟
 rmvo 毛纺
 rmvo 毛孩
 rmvo 外弦
-rmvp 毛皮
 rmvp 外皮
+rmvp 毛皮
 rmvq 外乡
 rmvq 外孫
 rmvq 外鄉
@@ -199318,6 +199318,7 @@ tflq 𬆱
 tfls 𠋒
 tflu 䱏
 tflu 𧯚
+tflv 斜口
 tflv 創口
 tflv 領口
 tflv 𠔗
