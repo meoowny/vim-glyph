@@ -144678,8 +144678,8 @@ ogoe 寄放
 ogoe 主客
 ogof 主语
 ogof 寄语
-ogog 宝宝
 ogog 试试
+ogog 宝宝
 ogog 寄主
 ogog 寶寶
 ogog 𡬀
