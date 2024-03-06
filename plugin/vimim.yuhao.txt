@@ -30441,6 +30441,7 @@ dffl 𣓺
 dffm 感想
 dffn 礎
 dffn 𥗈
+dffo 硬核
 dffq 成本核算
 dffq 雨林木风
 dffr 雨林木風
@@ -145620,6 +145621,7 @@ ojoh 课室
 ojol 孰是孰非
 ojol 谁是谁非
 ojom 宜昌市
+ojoq 课设
 ojoq 高山族
 ojor 𧙬
 ojor 𧙴
@@ -180296,6 +180298,7 @@ rvt 彿
 rvta 私邸
 rvtb 私分
 rvte 狻
+rvte 狠人
 rvte 私人
 rvte 犯人
 rvte 外乡人
@@ -216146,8 +216149,8 @@ uswy 燪
 uswy 詴
 uswy 𢈓
 usxa 𭵨
-usxb 迸发
 usxb 并发
+usxb 迸发
 usxe 廣收
 usxf 𤑳
 usxh 謀劃
