@@ -18749,6 +18749,7 @@ btpf 通病
 btpf 通窍
 btpp 𮉝
 btpr 纖瘦
+btpx 通断
 btpx 勇闯
 btqa 通年
 btqb 紛繁
