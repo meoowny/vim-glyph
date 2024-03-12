@@ -145,7 +145,7 @@ function! s:vimim_dictionary_punctuations()
     let two = join(split(join(split(s:antonym)[:3],''),'\zs'))
     let antonyms = s:vimim_key_value_hash(one, two)
     let one = " ,  .  ~  ^  _  :  $  !  ;  ?  \\  '  \" "
-    let two = " ， 。 ﹡ …… —— ： ￥ ！ ； ？ 、 ‘’  “” "
+    let two = " ， 。 · …… —— ： ￥ ！ ； ？ 、 ‘’  “” "
     let mini_punctuations = s:vimim_key_value_hash(one, two)
     let one = " +  -  ~  #  &  %  =  * "
     let two = "＋ － ～ ＃ ＆ ％  ＝ ﹡"
