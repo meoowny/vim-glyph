@@ -98006,6 +98006,7 @@ iqvg 海参
 iqvh 海疆
 iqvi 汔
 iqvi 䇄
+iqvk 泛函
 iqvk 海子
 iqvl 没了
 iqvm 𤃾
@@ -222364,6 +222365,7 @@ vkvi 鄉里鄉親
 vkvi 氶
 vkvi 氹
 vkvj 邋里邋遢
+vkvk 函子
 vkvk 邋里邋遢
 vkvl 承台
 vkvl 子彈
