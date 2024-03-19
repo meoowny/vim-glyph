@@ -224835,6 +224835,7 @@ vtis 強人所難
 vtiv 纵波
 vtiy 纵深
 vtja 费时
+vtjf 张量
 vtjf 纵是
 vtjh 費時
 vtjr 纪念日
@@ -228329,6 +228330,7 @@ weif 錦江
 weig 𣢡
 weih 錦濤
 weij 欽
+weij 服务端
 weik 牧童
 weil 服务部
 weil 𦟋
