@@ -210218,6 +210218,7 @@ ugrh 𮵣
 ugri 𭅑
 ugrj 遵旨
 ugrj 𮍨
+ugrl 卷积
 ugrl 美名
 ugrl 总面积
 ugrm 羊毛
