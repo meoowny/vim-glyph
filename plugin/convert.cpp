@@ -24,7 +24,15 @@ bool equl(const char* a, const char* b) {
     return true;
 }
 
-void handleFile(ifstream& read, ofstream& out) {
+const char* getCharHead(const char* line) {
+    while (*line != ' ' && *line != '\0') {
+        line++;
+    }
+    return line;
+}
+
+void appendFrequency(ifstream& read, ofstream& out) {
+    cout << "appending" << endl;
     int i = 100, option = 1;
     char* buffer_poll = new char[102];  // 分配一个内存池，存放当前行与前一行内容
     memset(buffer_poll, 0, 102);
@@ -51,6 +59,34 @@ void handleFile(ifstream& read, ofstream& out) {
     delete[] buffer_poll;
 }
 
+void mergeCode(ifstream& read, ofstream& out) {
+    cout << "merging" << endl;
+    int option = 1;
+    char* buffer_poll = new char[102];
+    memset(buffer_poll, 0, 102);
+    char* prev_buffer = buffer_poll;
+    char* buffer = buffer_poll + 50;
+    prev_buffer[0] = ' ';
+    while (!read.eof()) {
+        buffer = buffer_poll + option * 50;
+        read.getline(buffer, 50);
+
+        if (strlen(buffer) == 0) {
+            out << endl;
+            break;
+        }
+        if (equl(buffer, prev_buffer))
+            out << getCharHead(buffer);
+        else
+            out << endl << buffer;
+
+
+        prev_buffer = buffer;
+        option = 1 - option;
+    }
+    delete[] buffer_poll;
+}
+
 int main(int argc, char **argv) {
     // 打开文件
     ifstream read("vimim.yuhao.txt");
@@ -58,7 +94,13 @@ int main(int argc, char **argv) {
     if (read.is_open() && out.is_open()) {
         cout << "opened " << endl;
 
-        handleFile(read, out);
+        if (argc == 0 || argv[1][0] == 'f')
+            appendFrequency(read, out);
+        else if (argv[1][0] == 'c')
+            mergeCode(read, out);
+        else
+            ;
+
         read.close();
         out.close();
 
