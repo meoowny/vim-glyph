@@ -836,7 +836,6 @@ endfunction
 
 function! s:buffer_init()
     if !exists("b:switch")
-        echon "hi"
         call s:vimim_super_reset()
     endif
 endfunction
@@ -850,6 +849,6 @@ sil!call s:vimim_set_im_toggle_list()
 sil!call s:vimim_plug_and_play()
 :let g:Vimim_profile = reltime(g:Vimim_profile)
 
-autocmd VimEnter,BufEnter * call s:buffer_init()
+autocmd VimEnter,BufEnter * sil!call s:buffer_init()
 " ============================================= }}}
 " vim: foldmethod=marker:
