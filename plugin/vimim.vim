@@ -93,9 +93,9 @@ function! s:vimim_set_frontend()
     endwhile
 
     let s:valid_keys = split(keycode_string, '\zs')
-    let logo = s:chinese('chinese','_',s:mode.static?'static':'dynamic')
+    let logo = s:chinese('chinese','_',b:mode.static?'static':'dynamic')
     let tail = s:chinese('halfwidth')
-    if g:Vimim_punctuation > 0 && s:toggle_punctuation > 0
+    if g:Vimim_punctuation > 0 && b:toggle_punctuation > 0
         let tail = s:chinese('fullwidth')
     endif
     let g:Vimim = "VimIM".s:space.logo.' '.s:vimim_im_chinese().' '.tail
@@ -201,8 +201,8 @@ let s:VimIM += [" ====  lmap imap nmap   ==== {{{"]
 " =================================================
 
 function! g:Vimim_cycle_vimim()
-    if s:mode.static || s:mode.dynamic
-        let s:toggle_punctuation = (s:toggle_punctuation + 1) % 2
+    if b:mode.static || b:mode.dynamic
+        let b:toggle_punctuation = (b:toggle_punctuation + 1) % 2
     endif
     sil!call s:vimim_set_frontend()
     sil!call s:vimim_set_keyboard_maps()
@@ -250,7 +250,7 @@ endfunction
 function! g:Wubi(after_char)
     " 四码顶屏及唯一结果顶屏 
     let key = pumvisible() && !a:after_char ? '\<C-E>' : ""
-    if empty(len(get(split(s:keyboard),0))%4)
+    if empty(len(get(split(b:keyboard),0))%4)
         if g:Vimim_AutoConfirmInput && a:after_char && len(s:match_list) == 1 || !a:after_char
             let key = pumvisible() ? '\<C-Y>' : key
         endif
@@ -272,7 +272,7 @@ endfunction
 function! g:Punctuation(key)
     let key = a:key
 
-    if s:toggle_punctuation > 0 && (pumvisible() || getline(".")[col(".")-2] !~ '\w')
+    if b:toggle_punctuation > 0 && (pumvisible() || getline(".")[col(".")-2] !~ '\w')
         if has_key(s:punctuations, a:key)
             let key = s:punctuations[a:key]
             if a:key == '"'
@@ -303,36 +303,36 @@ function! g:Vimim_space()
     let key = " "
     if pumvisible()
         let key = '\<C-R>=g:Vimim()\<CR>'
-        let cursor = s:mode.static ? '\<C-P>\<C-N>' : ''
+        let cursor = b:mode.static ? '\<C-P>\<C-N>' : ''
         let key = cursor . '\<C-Y>' . key
-    elseif s:mode.static
+    elseif b:mode.static
         let key = s:vimim_left() ? g:Vimim() : key
     elseif s:seamless_positions == getpos(".")
-        let s:smart_enter = 0
+        let b:smart_enter = 0
     endif
     call s:vimim_reset_after_insert()
     sil!exe 'sil!return "' . key . '"'
 endfunction
 
 function! g:Vimim_enter()
-    let s:omni = 0
+    let b:omni = 0
     let key = ""
     if pumvisible()
         let key = "\<C-E>"
-        let s:smart_enter = 1
+        let b:smart_enter = 1
     elseif s:vimim_left()
-        let s:smart_enter = 1
+        let b:smart_enter = 1
         if s:seamless_positions == getpos(".")
-            let s:smart_enter += 1
+            let b:smart_enter += 1
         endif
     else
-        let s:smart_enter = 0
+        let b:smart_enter = 0
     endif
-    if s:smart_enter == 1
+    if b:smart_enter == 1
         let s:seamless_positions = getpos(".")
     else
         let key = "\<CR>"
-        let s:smart_enter = 0
+        let b:smart_enter = 0
     endif
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -342,9 +342,9 @@ let s:VimIM += [" ====  mode: chinese    ==== {{{"]
 " =================================================
 
 function! g:Vimim_chinese()
-    let s:mode = s:dynamic
-    let s:switch = empty(s:ui.frontends) ? -1 : s:switch ? 0 : 1
-    return s:switch<0 ? "" : s:switch ? s:vimim_start() : s:vimim_stop()
+    let b:mode = s:dynamic
+    let b:switch = empty(s:ui.frontends) ? -1 : b:switch ? 0 : 1
+    return b:switch<0 ? "" : b:switch ? s:vimim_start() : s:vimim_stop()
 endfunction
 
 function! s:vimim_set_keyboard_maps()
@@ -358,7 +358,7 @@ function! s:vimim_set_keyboard_maps()
         sil!exe 'lnoremap<silent><buffer> ' . char . " <C-R>=pumvisible()? g:Vimim_space() . ' " . char . "' : '" . char . "'<CR>"
     endfor
 
-    let both_dynamic = s:mode.dynamic ? 1 : 0
+    let both_dynamic = b:mode.dynamic ? 1 : 0
     " 取消加减翻页的功能，改用方括号翻页
     " let common_punctuations = split("] [ = -")
     let common_punctuations = split("] [")
@@ -371,7 +371,7 @@ function! s:vimim_set_keyboard_maps()
             " 两次调用 Wubi ，第一次用于四码顶屏，第二次用于唯一匹配结果顶屏，可设置
             " BUG: 上面这句话在输入可设置时会自动换行
         endfor
-    elseif s:mode.static
+    elseif b:mode.static
         for char in s:valid_keys
             sil!exe 'lnoremap<silent><buffer> ' . char . ' ' .  char
         endfor
@@ -380,7 +380,7 @@ function! s:vimim_set_keyboard_maps()
         let common_labels += s:abcd[1:]
     endif
     if g:Vimim_punctuation < 0
-    elseif both_dynamic || s:mode.static
+    elseif both_dynamic || b:mode.static
         sil!call s:vimim_punctuation_maps()
     endif
     for _ in common_punctuations
@@ -529,7 +529,7 @@ function! s:vimim_set_datafile(im, datafile)
 endfunction
 
 function! s:vimim_get_from_datafile(keyboard)
-    let pattern = '^\V' . a:keyboard . ' '
+    let pattern = '^\V' . a:keyboard . '\.\{-} '
     let backend = s:backend[s:ui.root][s:ui.im]
     let cursor = match(backend.lines, pattern)
     if cursor < 0 | return [] | endif
@@ -597,8 +597,8 @@ function! s:vimim_start()
     lnoremap <silent><buffer> <expr> <CR>    g:Vimim_enter()
     lnoremap <silent><buffer> <expr> <Space> g:Vimim_space()
     let key = ''
-    if empty(s:ctrl6)
-        let s:ctrl6 = 32911
+    if empty(b:ctrl6)
+        let b:ctrl6 = 32911
         let key = nr2char(30)
     endif
     sil!exe 'sil!return "' . key . '"'
@@ -617,9 +617,9 @@ function! s:vimim_stop()
 endfunction
 
 function! s:vimim_save_vimrc()
-    let s:omnifunc    = &omnifunc
-    let s:complete    = &complete
-    let s:completeopt = &completeopt
+    let b:omnifunc    = &omnifunc
+    let b:complete    = &complete
+    let b:completeopt = &completeopt
 endfunction
 
 function! s:vimim_set_vimrc()
@@ -631,9 +631,9 @@ function! s:vimim_set_vimrc()
 endfunction
 
 function! s:vimim_restore_vimrc()
-    let &omnifunc    = s:omnifunc
-    let &complete    = s:complete
-    let &completeopt = s:completeopt
+    let &omnifunc    = b:omnifunc
+    let &complete    = b:complete
+    let &completeopt = b:completeopt
     let &pumheight   = s:pumheights.saved
 endfunction
 
@@ -644,15 +644,15 @@ function! s:vimim_super_reset()
 endfunction
 
 function! s:vimim_reset_before_anything()
-    let s:mode = s:static
-    let s:keyboard = ""
-    let s:omni = 0
-    let s:ctrl6 = 0
-    let s:switch = 0
-    let s:toggle_im = 0
-    let s:smart_enter = 0
-    let s:toggle_punctuation = 1
-    let s:popup_list = []
+    let b:mode = s:static
+    let b:keyboard = ""
+    let b:omni = 0
+    let b:ctrl6 = 0
+    let b:switch = 0
+    let b:toggle_im = 0
+    let b:smart_enter = 0
+    let b:toggle_punctuation = 1
+    let b:popup_list = []
 endfunction
 
 function! s:vimim_reset_before_omni()
@@ -707,13 +707,13 @@ if a:start
     endif
     let len = cursor_positions[2]-1 - start_column
     let keyboard = strpart(current_line, start_column, len)
-    if s:keyboard !~ '\S\s\S'
-        let s:keyboard = keyboard
+    if b:keyboard !~ '\S\s\S'
+        let b:keyboard = keyboard
     endif
     let s:starts.column = start_column
     return start_column
 else
-    if s:omni < 0
+    if b:omni < 0
         return [s:space]
     endif
     let results = s:vimim_cache()
@@ -724,7 +724,7 @@ else
     endif
     let keyboard = a:keyboard
     if !empty(str2nr(keyboard))
-        let keyboard = get(split(s:keyboard),0)
+        let keyboard = get(split(b:keyboard),0)
     endif
     if empty(keyboard) || keyboard !~ valid_keyboard
         return []
@@ -732,7 +732,7 @@ else
     if empty(results)
         if len(keyboard) > 4
             let keyboard = strpart(keyboard, 4*((len(keyboard)-1)/4))
-            let s:keyboard = keyboard
+            let b:keyboard = keyboard
         endif
         let results = s:vimim_embedded_backend_engine(keyboard)
     endif
@@ -746,16 +746,16 @@ endfunction
 function! s:vimim_popupmenu_list(lines)
     let s:match_list = a:lines
     " 简化如下两句，因为形码似乎用不上这种划分吧？虽然也没搞懂这是干嘛的
-    " let keyboards = split(s:keyboard)  " mmmm => ['m',"m'm'm"]
+    " let keyboards = split(b:keyboard)  " mmmm => ['m',"m'm'm"]
     " let keyboard = join(keyboards,"")
-    let keyboard = s:keyboard
+    let keyboard = b:keyboard
     " let tail = len(keyboards) < 2 ? "" : get(keyboards,1)
     if empty(a:lines) || type(a:lines) != type([])
         return []
     endif
     " let label = 1
     " let one_list = []
-    let s:popup_list = []
+    let b:popup_list = []
     for chinese in s:match_list
         let complete_items = {}
         " let titleline = s:vimim_get_label(label)
@@ -775,10 +775,10 @@ function! s:vimim_popupmenu_list(lines)
         " let label += 1
         let complete_items["dup"] = 1
         let complete_items["word"] = empty(chinese) ? s:space : chinese
-        call add(s:popup_list, complete_items)
+        call add(b:popup_list, complete_items)
     endfor
     call s:vimim_set_pumheight()
-    return s:popup_list
+    return b:popup_list
 endfunction
 
 function! s:vimim_embedded_backend_engine(keyboard)
@@ -796,23 +796,23 @@ function! s:vimim_embedded_backend_engine(keyboard)
         " 作用是逐字查找可行的编码
         let results = s:vimim_get_from_datafile(keyboard)
     endif
-    if s:keyboard !~ '\S\s\S'
+    if b:keyboard !~ '\S\s\S'
         " 这里同上一语句块内的注释
-        let s:keyboard = keyboard
+        let b:keyboard = keyboard
     endif
     return results
 endfunction
 
 function! g:Vimim()
-    let s:omni = s:omni < 0 ? -1 : 0
-    let s:keyboard = empty(s:pageup_pagedown) ? "" : s:keyboard
+    let b:omni = b:omni < 0 ? -1 : 0
+    let b:keyboard = empty(s:pageup_pagedown) ? "" : b:keyboard
     let key = s:vimim_left() ? '\<C-X>\<C-O>\<C-R>=g:Omni()\<CR>' : ""
     sil!exe 'sil!return "' . key . '"'
 endfunction
 
 function! g:Omni()
-    let s:omni = s:omni < 0 ? 0 : 1
-    let key = s:mode.static ? '\<C-N>\<C-P>' : '\<C-P>\<Down>'
+    let b:omni = b:omni < 0 ? 0 : 1
+    let key = b:mode.static ? '\<C-N>\<C-P>' : '\<C-P>\<Down>'
     let key = pumvisible() ? key : ""
     sil!exe 'sil!return "' . key . '"'
 endfunction
@@ -834,6 +834,13 @@ function! s:vimim_plug_and_play()
     inoremap <unique> <M-o> <C-R>=g:Vimim_toggle_auto_mode()<CR>
 endfunction
 
+function! s:buffer_init()
+    if !exists("b:switch")
+        echon "hi"
+        call s:vimim_super_reset()
+    endif
+endfunction
+
 sil!call s:vimim_initialize_global()
 sil!call s:vimim_dictionary_punctuations()
 sil!call s:vimim_dictionary_keycodes()
@@ -842,4 +849,7 @@ sil!call s:vimim_set_backend_embedded()
 sil!call s:vimim_set_im_toggle_list()
 sil!call s:vimim_plug_and_play()
 :let g:Vimim_profile = reltime(g:Vimim_profile)
+
+autocmd VimEnter,BufEnter * call s:buffer_init()
 " ============================================= }}}
+" vim: foldmethod=marker:
