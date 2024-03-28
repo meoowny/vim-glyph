@@ -152158,8 +152158,8 @@ oxea 为何
 oxec 为他
 oxec 辦妥
 oxee 高畫質
-oxef 为伍
 oxef 为例
+oxef 为伍
 oxeh 为佳
 oxej 高畫質晰
 oxer 辦貨
@@ -184232,11 +184232,11 @@ selh 原味
 selh 藥味
 selj 原唱
 sell 蕎
+sell 存储器
 sell 瓷器
 sell 赝品
 sell 次品
 sell 菜品
-sell 存储器
 sell 藥品
 sell 菜單
 sell 贗品
