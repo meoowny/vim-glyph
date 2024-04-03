@@ -22217,6 +22217,7 @@ cevt 预付费
 cevt 預付費
 cevv 降级
 cevv 𨸻
+cevw 降维
 cevx 𡝦
 cewa 隱射
 cewb 附錄
@@ -39076,8 +39077,8 @@ duto 𥓵
 dutp 𠁛
 dutq 磁铁
 dutr 不舍
-duts 不错
 duts 不会
+duts 不错
 dutu 胡説八道
 dutu 電話會議
 dutu 胡說八道
@@ -55264,9 +55265,9 @@ fffo 本校
 fffo 標頭檔案
 fffp 本来
 fffp 𰘚
+fffq 本机
 fffq 功亏一篑
 fffq 万无一失
-fffq 本机
 fffr 一本万利
 fffr 一来一往
 fffr 𣕢
@@ -60664,8 +60665,8 @@ fmtm 相看
 fmtn 想用
 fmtn 想个
 fmtn 兩用
-fmto 想念
 fmto 相邻
+fmto 想念
 fmtp 相片
 fmtp 兩邊
 fmtp 兩片
@@ -62244,6 +62245,7 @@ fptm 𪴣
 fptn 来用
 fpty 三文魚
 fpue 𭪀
+fpum 来着
 fpum 楼盖
 fpum 板门店
 fpus 楼兰
@@ -71976,7 +71978,7 @@ gjqw 春风
 gjqw 春筍
 gjqx 春笋
 gjqx 春節
-gjr 琨
+gjr 春
 gjrf 春風
 gjrf 𫧍
 gjrg 𢦣
@@ -87175,6 +87177,7 @@ hvhl 𱑰
 hvhm 去到
 hvhm 𠞗
 hvhm 𥂊
+hvhv 教教
 hvhv 𠬑
 hvhw 𩇘
 hvia 𫘸
@@ -97496,6 +97499,7 @@ iqei 兴风作浪
 iqek 流年似水
 iqen 汽修
 iqep 活血化瘀
+iqer 泛化
 iqer 汽化
 iqer 没货
 iqer 没貨
@@ -111003,6 +111007,7 @@ kfca 贱民
 kfck 同工异曲
 kfcl 䦜
 kfcl 𧋋
+kfct 同阶
 kfct 開除
 kfcu 赋予
 kfcv 同好
@@ -121419,6 +121424,7 @@ lioq 𠺩
 lior 𡁺
 lios 串亲访友
 lios 𫬵
+liou 非说
 liou 𡄽
 liov 𠺘
 lipf 非空
@@ -143188,8 +143194,8 @@ odyl 豁免
 odyl 家兔
 odyo 夜不歸宿
 odyr 家鴿
-odys 衣不解带
 odys 读写
+odys 衣不解带
 odys 读懂
 odys 衣不解帶
 odys 家貓
@@ -157780,6 +157786,7 @@ ppw 闵
 ppwb 𤵒
 ppwd 磨穿鐵硯
 ppwd 𥽅
+ppwh 这周
 ppwh 闭门造车
 ppwl 这句
 ppwm 这身
@@ -222923,6 +222930,7 @@ vmj 绰
 vmjd 绰
 vmjm 𢐸
 vmks 组曲
+vmkw 组网
 vmkw 纱网
 vmlf 孙吴
 vmlk 组员
