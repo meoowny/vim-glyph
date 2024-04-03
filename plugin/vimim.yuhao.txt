@@ -202349,6 +202349,7 @@ tndu 自圓其說
 tndw 𨗃
 tneb 𨕼
 tnef 个体
+tnef 用例
 tnef 用兵
 tnef 个例
 tnei 个位
