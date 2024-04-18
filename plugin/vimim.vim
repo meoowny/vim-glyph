@@ -826,8 +826,8 @@ function! s:vimim_plug_and_play()
     " nnoremap <silent> <C-_> a<C-R>=g:Vimim_chinese()<CR>
     " inoremap <unique> <C-_>  <C-R>=g:Vimim_chinese()<CR>
     " vim 原生支持的语言切换键是 C-_ 和 C-^
-    nnoremap <silent> <C-6> a<C-R>=g:Vimim_chinese()<CR><ESC>
-    inoremap <unique> <C-6>  <C-R>=g:Vimim_chinese()<CR>
+    nnoremap <silent> <C-J> a<C-R>=g:Vimim_chinese()<CR><ESC>
+    inoremap <unique> <C-J>  <C-R>=g:Vimim_chinese()<CR>
     " 希望加入命令模式下的支持
     " cnoremap <unique> <C-M>  <C-R>=g:Vimim_chinese()<CR>
     nnoremap <silent> <M-o> <CMD>call g:Vimim_toggle_auto_mode()<CR>
