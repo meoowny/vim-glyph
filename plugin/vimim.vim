@@ -849,6 +849,6 @@ sil!call s:vimim_set_im_toggle_list()
 sil!call s:vimim_plug_and_play()
 :let g:Vimim_profile = reltime(g:Vimim_profile)
 
-autocmd VimEnter,BufEnter * sil!call s:buffer_init()
+autocmd VimEnter,BufReadPost * sil!call s:buffer_init()
 " ============================================= }}}
 " vim: foldmethod=marker:

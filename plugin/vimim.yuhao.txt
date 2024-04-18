@@ -26000,8 +26000,8 @@ ctdy 陰雨
 ctdy 陰霾
 cteb 婚假
 cteb 险僻
-ctef 队伍
 ctef 阶段
+ctef 队伍
 ctef 婚后
 ctej 队
 ctek 女人們
@@ -51816,6 +51816,7 @@ ewvk 鷂子
 ewvl 爲了
 ewvl 爳
 ewvm 乌纱
+ewvv 优先级
 ewvv 𪜩
 ewvx 乌绿
 eww 乌
@@ -116016,6 +116017,7 @@ ksn 赈
 ksnb 赈
 ksnb 上紧
 ksnc 蜄
+ksne 上图
 ksne 上路
 ksnh 𮤪
 ksnh 𰿟
@@ -139862,8 +139864,8 @@ nqsw 四有
 nqsw 四舊
 nqsx 四节
 nqsx 𣦋
-nqtb 临盆
 nqtb 四分
+nqtb 临盆
 nqte 党人
 nqte 四人
 nqtf 监印
@@ -143683,6 +143685,7 @@ oevk 𡥮
 oevk 𰕪
 oevl 说白了
 oevl 放了
+oevo 放缩
 oevp 夜巡
 oevs 放飞
 oevt 放纵
@@ -201461,6 +201464,7 @@ tkol 自宮
 tkom 𮬔
 tkoo 自由主义
 tkop 𲅯
+tkoq 自旋
 tkoq 自審
 tkos 公開賽
 tkot 自认
@@ -205472,8 +205476,8 @@ tusl 自討苦喫
 tusl 自討苦吃
 tust 𫙴
 tusu 念兹在兹
-tusv 手艺
 tusv 手动
+tusv 手艺
 tusw 鮮有
 tut 镒
 tuta 八榮八耻
